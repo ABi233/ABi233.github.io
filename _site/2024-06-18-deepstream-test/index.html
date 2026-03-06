@@ -73,7 +73,7 @@
   
 
   
-  <meta property="og:site_name" content="Abi NoteBook">
+  <meta property="og:site_name" content="Abi Base">
   <meta property="og:title" content="Deepstream Test 学习笔记">
   <meta property="og:description" content="对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解 deepstream-test1可以学习如何使用deepstream插件来建立GStreamer流水线, 建立一个从视频文件-&amp;gt;解码-&amp;gt;批处理-&amp;gt;物体识别-&amp;gt;渲染识别结果框在屏幕上的流水线 deepstream-test2在test1的基础上级联2级模型 deepstream-test3展示如何使用多个视频流输入 deepstream-test4使用message broker插件来建立物联网服务 更多的sample app源码可以阅读 C/C++ Sample Apps Source Details and Python Sample Apps and Bindings Source Details. C/C++ Sample Apps Source Details https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html#c-c-sample-apps-source-details 几个有用的test源码 test1完成了从源获取到推理结果输出的全流程pipeline osd_sink_pad_buffer_probe函数中展示了获取推理matedata的过程 更多的细节可以参考gstnvdsmeta.h test2在test1的基础上级联2级模型, 并且加上tracker test3在test1的基础上, 加上多个源输入以及不同源方式输入, 并且使用streammux来batch frame, 达到比较好的资源利用效率 test4在test1基础上, 加上message部分 test5在test1基础上, 加上report callback部分(需要研究一下) Yolo detector, 包含配置文件以及自定义库实现(?), 当前包含Yolo v2, v2 tiny, v3,...">
 
@@ -113,7 +113,7 @@
   
 
 
-  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">Abi NoteBook</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">Abi Base</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -249,6 +249,27 @@
           "date"     : "June 18, 2024" \
         }, \
        \
+        { \
+          "title"    : "Sample blog post", \
+          "category" : "test", \
+          "url"      : "/2020-02-28-test-markdown/", \
+          "date"     : "February 28, 2020" \
+        }, \
+       \
+        { \
+          "title"    : "Flake it till you make it", \
+          "category" : "bookstest", \
+          "url"      : "/2020-02-26-flake-it-till-you-make-it/", \
+          "date"     : "February 26, 2020" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
        \
         { \
           "title"    : "About Me", \
@@ -258,9 +279,23 @@
         }, \
        \
         { \
+          "title"    : "My website", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Abi&#39;s NoteBook", \
           "category" : "page", \
           "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/tags/", \
           "date"     : "January 1, 1970" \
         }, \
        \

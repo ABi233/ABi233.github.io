@@ -73,7 +73,7 @@
   
 
   
-  <meta property="og:site_name" content="Abi NoteBook">
+  <meta property="og:site_name" content="Abi Base">
   <meta property="og:title" content="Tag Index">
   <meta property="og:description" content="{% assign date_format = site.date_format | default: &quot;%B %-d, %Y&quot; %} {%- capture site_tags -%} {%- for tag in site.tags -%} {{- tag | first -}}{%- unless forloop.last -%},{%- endunless -%} {%- endfor -%} {%- endcapture -%} {%- assign tags_list = site_tags | split:&apos;,&apos; | sort -%} {%- for tag...">
 
@@ -111,7 +111,7 @@
   
 
 
-  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">Abi NoteBook</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">Abi Base</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -247,6 +247,27 @@
           "date"     : "June 18, 2024" \
         }, \
        \
+        { \
+          "title"    : "Sample blog post", \
+          "category" : "test", \
+          "url"      : "/2020-02-28-test-markdown/", \
+          "date"     : "February 28, 2020" \
+        }, \
+       \
+        { \
+          "title"    : "Flake it till you make it", \
+          "category" : "bookstest", \
+          "url"      : "/2020-02-26-flake-it-till-you-make-it/", \
+          "date"     : "February 26, 2020" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
        \
         { \
           "title"    : "About Me", \
@@ -256,9 +277,23 @@
         }, \
        \
         { \
+          "title"    : "My website", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Abi&#39;s NoteBook", \
           "category" : "page", \
           "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tmp/jekyll-remote-theme-20260306-1-j6suj/tags/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -326,7 +361,7 @@
     <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
       
 
-      <a href="#DeepStream" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;DeepStream&nbsp;(14)</a><a href="#NVIDIA" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;NVIDIA&nbsp;(14)</a><div id="full-tags-list"><h2 id="DeepStream" class="linked-section">
+      <a href="#DeepStream" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;DeepStream&nbsp;(14)</a><a href="#NVIDIA" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;NVIDIA&nbsp;(14)</a><a href="#books" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;books&nbsp;(1)</a><a href="#test" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;test&nbsp;(2)</a><div id="full-tags-list"><h2 id="DeepStream" class="linked-section">
         <i class="fas fa-tag" aria-hidden="true"></i>
         &nbsp;DeepStream&nbsp;(14)
     </h2>
@@ -473,6 +508,29 @@
                 <a href="/2024-06-18-NvDsBatchMeta/">DeepStream Struct - NvDsBatchMeta</a>
                 <div class="entry-date">
                     <time datetime="2024-06-18T00:00:00+08:00">June 18, 2024</time>
+                </div>
+            </div></div><h2 id="books" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;books&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2020-02-26-flake-it-till-you-make-it/">Flake it till you make it</a>
+                <div class="entry-date">
+                    <time datetime="2020-02-26T00:00:00+08:00">February 26, 2020</time>
+                </div>
+            </div></div><h2 id="test" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;test&nbsp;(2)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2020-02-28-test-markdown/">Sample blog post</a>
+                <div class="entry-date">
+                    <time datetime="2020-02-28T00:00:00+08:00">February 28, 2020</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2020-02-26-flake-it-till-you-make-it/">Flake it till you make it</a>
+                <div class="entry-date">
+                    <time datetime="2020-02-26T00:00:00+08:00">February 26, 2020</time>
                 </div>
             </div></div></div>
 
