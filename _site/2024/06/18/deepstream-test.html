@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Deepstream Test 学习笔记 - </title>
   <link rel="stylesheet" href="/assets/css/toc.css">
-  <!-- Prism.js: one-dark theme -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-one-dark.min.css">
+  <!-- Prism.js: one-dark theme (from prism-themes, not bundled in prismjs) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-dark.min.css">
   <!-- Prism line-numbers plugin CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
   <!-- Prism toolbar plugin CSS (for the copy button bar) -->
@@ -432,6 +432,10 @@ NvDsBatchMeta *batch_meta = gst_buffer_get_nvds_batch_meta (buf);</p>
   </footer>
 
   <script src="/assets/js/toc.js"></script>
+  <!-- Tell Prism NOT to auto-highlight; code-enhance.js will call
+       Prism.highlightAll() after preparing the DOM (copying language-*
+       classes from <code> to <pre>, adding line-numbers, etc.). -->
+  <script>window.Prism = window.Prism || {}; Prism.manual = true;</script>
   <!-- Prism core + autoloader (loads language grammars on demand) -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
