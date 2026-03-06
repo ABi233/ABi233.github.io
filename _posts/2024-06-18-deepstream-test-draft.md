@@ -1,3 +1,8 @@
+---
+layout: post
+title: "DeepStream Test 学习笔记 (Draft)"
+date: 2024-06-18
+---
 对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解
 ![Pasted image 20230801171301.png](https://cdn.jsdelivr.net/gh/ABi233/pic-upload/obs/202310091415015.png)
 

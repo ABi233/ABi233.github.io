@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepStream Use Custom Model - </title>
+  <link rel="stylesheet" href="/assets/css/toc.css">
+  <!-- Rouge One Dark: colours for server-side highlighted code (GitHub Pages) -->
+  <link rel="stylesheet" href="/assets/css/rouge-one-dark.css">
+  <!-- Prism.js One Dark: colours for client-side highlighted code (local build) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-dark.min.css">
+  <!-- Prism line-numbers plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  <!-- Prism toolbar plugin CSS (for the copy button bar) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title"><a href="/"></a></h1>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <main class="content" role="main">
+      <article class="post">
+        <header class="post-header">
+          <h1 class="post-title">DeepStream Use Custom Model</h1>
+        </header>
+
+        <div class="post-body">
+          <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_using_custom_model.html">Using a Custom Model with DeepStream — DeepStream 6.3 Release documentation (nvidia.com)</a></p>
+
+<p>deepstream流程支持使用自定义的模型来进行推理, 插件为nvinfer</p>
+<h2 id="configuration">configuration</h2>
+<p>使用自定义模型也需要提供一个configuration, 用于配置模型的一些信息, 下面这些字段是必须要配置的:</p>
+<ul>
+  <li>model-file (Caffe model)</li>
+  <li>proto-file (Caffe model)</li>
+  <li>uff-file (UFF models)</li>
+  <li>onnx-file (ONNX models)</li>
+  <li>model-engine-file, if already generated</li>
+  <li>int8-calib-file for INT8 mode</li>
+  <li>mean-file, if required</li>
+  <li>offsets, if required</li>
+  <li>maintain-aspect-ratio, if required</li>
+  <li>parse-bbox-func-name (detectors only)</li>
+  <li>parse-classifier-func-name (classifiers only)</li>
+  <li>custom-lib-path</li>
+  <li>output-blob-names (Caffe and UFF models)</li>
+  <li>network-type</li>
+  <li>model-color-format</li>
+  <li>process-mode</li>
+  <li>engine-create-func-name</li>
+  <li>infer-dims (UFF models)</li>
+  <li>uff-input-order (UFF models)</li>
+</ul>
+
+<h2 id="implementation-interface">implementation interface</h2>
+<p>nvinfer能够支持用于以下目的的接口:</p>
+<ul>
+  <li>Custom bounding box parsing for custom neural network detectors and classifiers</li>
+  <li>IPlugin implementation for layers not natively supported by NVIDIA® TensorRT™</li>
+  <li>Initializing non-image input layers in cases where the network has more than one input layer</li>
+  <li>Creating a CUDA engine using TensorRT Layer APIs instead of model parsing APIs. Read more about TensorRT docs here: <a href="https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html">https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html</a></li>
+  <li>IModelParser interface to parse the model and fill the layers in an INetworkDefinition</li>
+</ul>
+
+<p>简略翻译:</p>
+<ul>
+  <li>自定义detectors和classifiers模型的bbox输出处理</li>
+  <li>对TensorRT原生不支持的层, 使用IPlugin来实现相关功能</li>
+  <li>在网络具有多个输入层的情况下初始化非图像输入层</li>
+  <li>使用TensorRT Layer APIs创建CUDA引擎</li>
+  <li>IModelParser 接口用于解析模型并填充 INetworkDefinition 中的层</li>
+</ul>
+
+<p>所有的接口需要在一个单独的动态库中实现, nvinfer使用<code>dlopen()</code>来动态调用库, 使用<code>dlsym()</code>来查找接口
+在头文件<code>nvdsinfer_custom_impl.h</code>中可以看到更多用法</p>
+<h2 id="output-parse">output parse</h2>
+<p>对于detector, 后处理库需要提供处理bbox坐标, 从模型输出层获得类别信息的能力
+对于classifier, 后处理库需要提供处理从输出层得到的object特征/属性的能力</p>
+
+<p>在<code>sources/libs/nvdsinfer_customparser</code>路径中包含了一些自定义模型输出处理的例子</p>
+
+<h2 id="iplugin">IPlugin</h2>
+<p>deepstream支持通过IPlugin插件来实现TensorRT不支持的网络层
+在<em>objectDetector_SSD</em>, <em>objectDetector_FasterRCNN</em>,  <em>objectDetector_YoloV3</em>sample中展示了IPlugin的用法</p>
+
+<p>Gst-nvinfer插件现在支持在TensorRT5.0中引入的IPluginV2 和 IPluginCreator接口
+为了兼容caffemodel和已经存在的插件, IPlugin依旧支持以下接口:</p>
+<ul>
+  <li>nvinfer1::IPluginFactory</li>
+  <li>nvuffparser::IPluginFactory</li>
+  <li>nvuffparser::IPluginFactoryExt</li>
+  <li>nvcaffeparser1::IPluginFactory</li>
+  <li>nvcaffeparser1::IPluginFactoryExt</li>
+  <li>nvcaffeparser1::IPluginFactoryV2</li>
+</ul>
+
+
+        </div>
+      </article>
+    </main>
+
+    <aside class="toc-sidebar" id="toc" aria-label="文章大纲">
+      <!-- 目录由 assets/js/toc.js 动态生成 -->
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">&copy; 2026 </div>
+  </footer>
+
+  <script src="/assets/js/toc.js"></script>
+  <!-- Tell Prism NOT to auto-highlight; code-enhance.js will call
+       Prism.highlightAll() after preparing the DOM (copying language-*
+       classes from <code> to <pre>, adding line-numbers, etc.). -->
+  <script>window.Prism = window.Prism || {}; Prism.manual = true;</script>
+  <!-- Prism core + autoloader (loads language grammars on demand) -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <!-- Prism line-numbers plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <!-- Prism toolbar + copy-to-clipboard plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <!-- show-language plugin: displays the language label in the toolbar -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+  <script src="/assets/js/code-enhance.js"></script>
+</body>
+</html>

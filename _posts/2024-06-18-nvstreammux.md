@@ -1,3 +1,8 @@
+---
+layout: post
+title: "DeepStream Plugin - Gst-nvstreammux"
+date: 2024-06-18
+---
 [Gst-nvstreammux — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvstreammux.html)
 
 [Gst-nvstreammux New — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvstreammux2.html)

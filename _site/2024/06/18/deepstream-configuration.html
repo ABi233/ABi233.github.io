@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepStream Configuration - </title>
+  <link rel="stylesheet" href="/assets/css/toc.css">
+  <!-- Rouge One Dark: colours for server-side highlighted code (GitHub Pages) -->
+  <link rel="stylesheet" href="/assets/css/rouge-one-dark.css">
+  <!-- Prism.js One Dark: colours for client-side highlighted code (local build) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-dark.min.css">
+  <!-- Prism line-numbers plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  <!-- Prism toolbar plugin CSS (for the copy button bar) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title"><a href="/"></a></h1>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <main class="content" role="main">
+      <article class="post">
+        <header class="post-header">
+          <h1 class="post-title">DeepStream Configuration</h1>
+        </header>
+
+        <div class="post-body">
+          <h1 id="配置组">配置组</h1>
+<p>|<strong>配置组名</strong>|<strong>配置内容</strong>|
+|:-:|-|
+|application|应用设置, 例如性能检测开关, 与指定组件无关的配置|
+|tiled-display|平铺显示, 类似九宫格显示|
+|source|源配置。多个源时，命名：[source0], [source1], …|
+|source-list|以列表形式提供的源URI, 可以支持多个输入源, 命名: [source-list], [source-attr-all]|
+|source-attr-all|同上|
+|streammux|streammux（混流）组件的配置和更改|
+|preprocess|preprocess（预处理）组件的配置和更改|
+|primary-gie|GIE推理引擎的相关配置|
+|secondary-gie|次级推理引擎的相关配置。多个次级推理命名：[secondary-gie0], [secondary-gie1], …|
+|tracker|目标跟踪的相关配置|
+|message converter|message converter(转换器)组件的配置和更改|
+|message consumer|message consumer(接收器)组件的配置和更改, pipeline可以包含多个接收器组件, 命名: [message-consumer0], [message-consumer1], …|
+|osd|OSD(on-screen display)组件相关配置。包括每一帧上显示的文本和矩形框|
+|sink|sink组件的相关配置。表示了输出（如显示、文件渲染、编码、文件保存）。一个管道可以包含多个sink。组的命名须为[sink0]， [sink1], …|
+|tests|诊断和debug。该组为测试用。|
+|NvDs-analytics|为nvdsanalytics插件配置参数, 并且在应用中启用该插件|</p>
+<h2 id="source">Source</h2>
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#source-group</p>
+<h2 id="source-list--source-attr-all">Source-list &amp; Source-attr-all</h2>
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#source-list-and-source-attr-all-groups</p>
+<h2 id="primary-gie">Primary-gie</h2>
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#primary-gie-and-secondary-gie-group</p>
+
+<p>gst-nvinfer configuration
+https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinfer.html#gst-nvinfer-file-configuration-specifications</p>
+<h2 id="tracker">Tracker</h2>
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#tracker-group
+more details: <a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvtracker.html#nvtracker-gst-properties">Gst-nvtracker — DeepStream 6.2 Release documentation (nvidia.com)</a></p>
+<h2 id="sink">Sink</h2>
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#sink-group
+一个使用rtsp输出的例子:</p>
+<pre><code class="language-txt">[sink1]
+enable=1
+#Type - 1=FakeSink 2=EglSink 3=File 4=RTSPStreaming
+type=4
+#1=h264 2=h265
+codec=1
+#encoder type 0=Hardware 1=Software
+enc-type=0
+sync=0
+bitrate=4000000
+#H264 Profile - 0=Baseline 2=Main 4=High
+#H265 Profile - 0=Main 1=Main10
+profile=0
+# set below properties in case of RTSPStreaming
+rtsp-port=8554
+udp-port=5400
+</code></pre>
+
+<p>reference:
+<a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_ref_app_deepstream.html#configuration-groups">DeepStream Reference Application - deepstream-app — DeepStream 6.2 Release documentation (nvidia.com)</a>
+<a href="https://blog.csdn.net/weixin_38369492/article/details/104859567">DeepStream 配置文件解析_drop-frame-interval_MOLWH的博客-CSDN博客</a>
+<a href="https://blog.csdn.net/Yan_uuu/article/details/127389866">NVIDIA DeepStream配置文件解析；摄像头源&amp;&amp;RTSP拉流源输入，RTSP推流输出_deepstream rtsp_Yan_uuu的博客-CSDN博客</a></p>
+
+
+        </div>
+      </article>
+    </main>
+
+    <aside class="toc-sidebar" id="toc" aria-label="文章大纲">
+      <!-- 目录由 assets/js/toc.js 动态生成 -->
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">&copy; 2026 </div>
+  </footer>
+
+  <script src="/assets/js/toc.js"></script>
+  <!-- Tell Prism NOT to auto-highlight; code-enhance.js will call
+       Prism.highlightAll() after preparing the DOM (copying language-*
+       classes from <code> to <pre>, adding line-numbers, etc.). -->
+  <script>window.Prism = window.Prism || {}; Prism.manual = true;</script>
+  <!-- Prism core + autoloader (loads language grammars on demand) -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <!-- Prism line-numbers plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <!-- Prism toolbar + copy-to-clipboard plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <!-- show-language plugin: displays the language label in the toolbar -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+  <script src="/assets/js/code-enhance.js"></script>
+</body>
+</html>

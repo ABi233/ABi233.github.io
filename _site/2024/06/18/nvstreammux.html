@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepStream Plugin - Gst-nvstreammux - </title>
+  <link rel="stylesheet" href="/assets/css/toc.css">
+  <!-- Rouge One Dark: colours for server-side highlighted code (GitHub Pages) -->
+  <link rel="stylesheet" href="/assets/css/rouge-one-dark.css">
+  <!-- Prism.js One Dark: colours for client-side highlighted code (local build) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-dark.min.css">
+  <!-- Prism line-numbers plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  <!-- Prism toolbar plugin CSS (for the copy button bar) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title"><a href="/"></a></h1>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <main class="content" role="main">
+      <article class="post">
+        <header class="post-header">
+          <h1 class="post-title">DeepStream Plugin - Gst-nvstreammux</h1>
+        </header>
+
+        <div class="post-body">
+          <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux — DeepStream 6.3 Release documentation (nvidia.com)</a></p>
+
+<p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New — DeepStream 6.3 Release documentation (nvidia.com)</a>
+<a href="https://zhuanlan.zhihu.com/p/478894260">插件 Gst-nvstreammux New (Beta) - 知乎 (zhihu.com)</a></p>
+
+<p>streamux插件主要是对多个输入源的数据流进行batch操作</p>
+<ul>
+  <li>streammux存在一个nvstreammux new的新版本插件, 是从ds5.0开始新建立的</li>
+  <li>当前可以默认依旧为老版本的streammux, 可以通过环境变量<code>export USE_NEW_NVSTREAMMUX=yes</code>来开启使用streammux new</li>
+  <li>在后续的更新中, 旧版本streammux将会弃用, 默认使用streammux new
+    <h1 id="sink--src">sink &amp; src</h1>
+    <p><strong>输入输出数据类型如下:</strong>
+streammux
+<img src="https://pic-upload-for-abi.oss-cn-hangzhou.aliyuncs.com/img-bed/202312021500864.png" alt="image.png" />
+streammux new
+<img src="https://pic-upload-for-abi.oss-cn-hangzhou.aliyuncs.com/img-bed/202312021504411.png" alt="image.png" /></p>
+  </li>
+</ul>
+
+<h1 id="feature">feature</h1>
+<h2 id="old">old</h2>
+<blockquote>
+  <p>When connecting a source to nvstreammux (the muxer), a new pad must be requested from the muxer using <code>gst_element_get_request_pad()</code> and the pad template <code>sink_%u</code>.</p>
+</blockquote>
+
+<p>每个输入源需要连接到streammux的sink pad上, pad会以sink_%u的形式命名</p>
+
+<blockquote>
+  <p>The muxer pushes the batch downstream when the batch is filled, or the batch formation timeout batched-pushed-timeout is reached. The timeout starts running when the first buffer for a new batch is collected.</p>
+</blockquote>
+
+<p>当出现1. batch队列已经填满 2. 组batch的时间超过batched-pushed-timeout设置的值, muxer会将batch推给下游组件</p>
+
+<blockquote>
+  <p>The muxer uses a round-robin algorithm to collect frames from the sources. It tries to collect an average of (batch-size/num-source) frames per batch from each source (if all sources are live and their frame rates are all the same).  The number varies for each source, though, depending on the sources’ frame rates.</p>
+</blockquote>
+
+<p>streammux会在输入源的帧率相同的情况下尽可能从每个源中收集每个批次的平均帧(batch size/num source), 并不是随机从源中获取帧; 但是收集到的每个输入源的帧数也会存在不相同的情况, 这取决于输入源的帧率</p>
+
+<blockquote>
+  <p>The muxer outputs a single resolution (i.e. all frames in the batch have the same resolution). This resolution can be specified using the width and height properties. The muxer scales all input frames to this resolution. The enable-padding property can be set to true to preserve the input aspect ratio while scaling by padding with black bands.</p>
+</blockquote>
+
+<p>muxer需要输出完全一致的分辨率, 也就是batch内的每一帧都是一致的分辨率. 可以通过streammux的width和height属性来设置输出分辨率, muxer将会对所有帧进行这个设定分辨率下的scale操作; 如果开启了enable-padding, 那么muxer将会保留帧的原始宽高比, 并且用黑色背景填充无像素的部分.</p>
+
+<p>输入源的分辨率会记录在<code>NvDsFrameMeta</code>的<code>source_frame_width</code>和<code>source_frame_height</code>字段中
+streammux输出分辨率会记录在<code>NvDsFrameMeta</code>的<code>pipeline_width</code>和<code>pipeline_height</code>字段中</p>
+
+<blockquote>
+  <p>Set the live-source property to true to inform the muxer that the sources are live. In this case the muxer attaches the PTS of the last copied input buffer to the batched Gst Buffer’s PTS. If the property is set to false, the muxer calculates timestamps based on the frame rate of the source which first negotiates capabilities with the muxer.</p>
+
+  <p>The muxer supports calculation of NTP timestamps for source frames. It supports two modes. In the system timestamp mode, the muxer attaches the current system time as NTP timestamp. In the RTCP timestamp mode, the muxer uses RTCP Sender Report to calculate NTP timestamp of the frame when the frame was generated at source. The NTP timestamp is set in <code>ntp_timestamp</code> field of <code>NvDsFrameMeta</code>. The mode can be toggled by setting the <code>attach-sys-ts</code> property. For more details, refer to section NTP Timestamp in DeepStream.</p>
+</blockquote>
+
+<p>streamux对于实时流的时间戳也有一些处理: 
+开启live-source选项告诉muxer输入源是直播视频, muxer会将最后复制的输入缓冲区的PTS用作批处理的 GstBuffer的PTS上;
+关闭live-source选项, muxer将会使用视频的帧率来计算时间戳
+<em>PTS主要用于度量解码后的视频帧什么时候被显示出来</em>
+<em><a href="https://blog.csdn.net/youzhouliu/article/details/78270238">H264中的时间戳（DTS和PTS)</a></em></p>
+
+<p>streamux同时支持计算NTP时间戳(<a href="https://blog.csdn.net/qing310820/article/details/111310721">NTP时间戳和UTC时间戳互转及其原理</a>), 计算结果将会写入<code>NvDsFrameMeta</code>的<code>ntp_timestamp</code>字段中
+通过配置attach-sys-ts字段, 可以选择不同的计算模式:
+attach-sys-ts设置为true, 使用system timestamp mode, muxer会使用系统时间来计算NTP时间戳
+设置为false, 使用RTCP timestamp mode, muxer会通过RTCP Sender的报文来计算当前帧的NTP时间戳</p>
+
+<blockquote>
+  <p>The muxer attaches an <code>NvDsBatchMeta</code> metadata structure to the output batched buffer. This meta contains information about the frames copied into the batch (e.g. source ID of the frame, original resolutions of the input frames, original buffer PTS of the input frames). The source connected to the <code>Sink_N</code> pad will have <code>pad_index</code> <code>N</code> in <code>NvDsBatchMeta</code>.</p>
+</blockquote>
+
+<p>muxer会将输出的组合好的batch加入到一个<code>NvDsBatchMeta</code>中, 这个metadata会包含当前批次中每一帧的metadata信息, 在<code>NvDsBatchMeta-&gt;frame_meta_list</code>中
+<em>更多metadata结构体的信息记录在[[NvDsBatchMeta]]和[[NvDsFrameMeta]]中</em>
+<code>Sink_N</code>和 <code>NvDsBatchMeta</code>中的<code>pad_index</code> <code>N</code>字段会对应起来</p>
+
+<blockquote>
+  <p>The muxer supports addition and deletion of sources at run time. When the muxer receives a buffer from a new source, it sends a <code>GST_NVEVENT_PAD_ADDED</code> event. When a muxer sink pad is removed, the muxer sends a <code>GST_NVEVENT_PAD_DELETED</code> event. Both events contain the source ID of the source being added or removed (see <code>sources/includes/gst-nvevent.h</code>). Downstream elements can reconfigure when they receive these events. Additionally, the muxer also sends a <code>GST_NVEVENT_STREAM_EOS</code> to indicate EOS from the source.</p>
+</blockquote>
+
+<p>streammux支持在运行时动态地添加或者删除源. 当新增一个源时, muxer会发送一个<code>GST_NVEVENT_PAD_ADDED</code>事件; 当移除一个源时, muxer会发送一个<code>GST_NVEVENT_PAD_DELETED</code>事件; 当muxer读完了源, 也会发送一个<code>GST_NVEVENT_STREAM_EOS</code>事件</p>
+<h3 id="batch-size">batch size</h3>
+<p><code>nvstreammux</code> 插件用于将来自多个输入流的视频帧合并为一个批处理。<code>batch-size</code> 参数指定了每个批处理包含的帧数。例如，如果 <code>nvstreammux</code> 的 <code>batch-size</code> 设置为 4，那么它将从各个输入流中收集 4 帧，将它们合并为一个批处理，然后发送给下一个插件。</p>
+<h4 id="和nvinfer-batch-size的区别">和nvinfer batch size的区别</h4>
+<p>streammux的batch-size和nvinfer的batch-size是可以不一致的
+<code>nvinfer</code> 插件用于对输入的视频帧进行推理处理（如目标检测、分类等）。<code>nvinfer</code> 的 <code>batch-size</code> 指定了它在每次推理操作中可以处理的帧数。如果 <code>nvinfer</code> 的 <code>batch-size</code> 设置为 1，那么它在每次推理中只处理一个帧</p>
+
+<p>当 <code>nvstreammux</code> 的 <code>batch-size</code> 大于 <code>nvinfer</code> 的 <code>batch-size</code> 时，<code>nvinfer</code> 将顺序处理来自 <code>nvstreammux</code> 的每个批处理中的帧。例如，如果 <code>nvstreammux</code> 的 <code>batch-size</code> 是 4 而 <code>nvinfer</code> 的 <code>batch-size</code> 是 1，则 <code>nvinfer</code> 会对 <code>nvstreammux</code> 发送的每个批处理中的四帧逐一进行推理</p>
+<h2 id="new">new</h2>
+<ul>
+  <li>不再支持streammux内的resize操作</li>
+  <li>不再限制streammux输出分辨率</li>
+  <li>支持动态修改confie file</li>
+  <li>支持帧率控制组合batch阈值
+    <h3 id="切换到streammux-new版本">切换到streammux new版本</h3>
+    <p>设置环境变量来使用nvstreammux new</p>
+    <pre><code class="language-bash">export USE_NEW_NVSTREAMMUX=yes
+</code></pre>
+    <h1 id="streammux使用技巧">streammux使用技巧</h1>
+    <p><a href="https://forums.developer.nvidia.com/t/deepstream-sdk-faq/80236/34#:~:text=26.%5BDeepstream6.2%20Gst%2Dnvstreammux%20%26%20Gst%2Dnvstreammux%20New%5DHow%20to%20set%20parameters%20reasonably%20to%20improve%20the%20efficiency%20of%20nvstreammux%20in%20live%20mode">How to set parameters reasonably to improve the efficiency of nvstreammux in live mode</a></p>
+    <h2 id="streammux-和-streammux-new在组合batch策略上的差异">streammux 和 streammux new在组合batch策略上的差异</h2>
+    <p>streammux通过<code>batched-push-timeout</code>来设置batch的超时时间
+streammux new不再支持<code>batched-push-timeout</code>方式来设定组合batch的超时阈值, 转而通过设置最小/最大帧率来作为组合batch的等待策略</p>
+  </li>
+</ul>
+
+<p>并且在<a href="https://forums.developer.nvidia.com/t/running-new-nvstreammux-offline-non-live-with-batching-of-a-single-source/262572">Running new nvstreammux offline / non-live with batching of a single source - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums</a>这个issuse中, 官方有提到”New nvstreammux is designed to sync multiple sources. If you want to batch the frames in one stream, please use nvstreammux. nvstreammux and new nvstreammux will co-exist. They are for different scenarios.”, 两个插件是用于不同的场景的, streammux new其实更加适合多个不同帧率的live stream组合batch的场景</p>
+
+<p>一个定位过程很丰富的issue<a href="https://forums.developer.nvidia.com/t/nvstreammux-new-plugin-is-broken-in-ds-6-2-release/251616/7">Nvstreammux (new) plugin is broken in DS 6.2 release - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums</a>, 可以后续来参考</p>
+
+<p>并且在测试发现, streammux new使用batch策略默认值时, 组合图片队列时batch size是不固定的, 基本为11~15个frame组一个batch
+这里就会出现如果模型的batch size是超过15的, 那么streammux new默认组合图片队列出的batch是会低于模型batch的</p>
+<ul>
+  <li>经过测试, batchsize=64的模型流水线中, 使用streammux组合出batch=64的数据和使用streammux new组合出多个batch=11~15的数据, 在实际推理流程中, 并没有明显的耗时差异
+    <h2 id="streammux组合batch乱序现象">streammux组合batch乱序现象</h2>
+    <p>有一个类似现象的issue<a href="https://forums.developer.nvidia.com/t/error-when-setting-streammuxs-batchsize-1-for-custom-model/202917">Error when setting streammux’s batchsize &gt;1 for custom model - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums</a>, 但是没有实际解决问题以及讲述原因</p>
+  </li>
+</ul>
+
+<p>在流水线测试中发现streammux组合出的batch_meta中的frame_meta_list的frame并不是一定按照sink pad连接顺序来排序的
+通过”The source connected to the <code>Sink_N</code> pad will have <code>pad_index</code> <code>N</code> in <code>NvDsBatchMeta</code>.”可以得知sink_n和pad_index字段是对应起来的, 不过源码的结构体定义中<code>NvDsFrameMeta</code>才拥有<code>pad_index</code>字段, 实际测试中也确实和sink_n对应</p>
+
+<p><code>NvDsFrameMeta</code>中还有一个<code>source_id</code>用于记录输入streammux的源序号, 其实和<code>pad_index</code>的含义是一致的</p>
+
+
+        </div>
+      </article>
+    </main>
+
+    <aside class="toc-sidebar" id="toc" aria-label="文章大纲">
+      <!-- 目录由 assets/js/toc.js 动态生成 -->
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">&copy; 2026 </div>
+  </footer>
+
+  <script src="/assets/js/toc.js"></script>
+  <!-- Tell Prism NOT to auto-highlight; code-enhance.js will call
+       Prism.highlightAll() after preparing the DOM (copying language-*
+       classes from <code> to <pre>, adding line-numbers, etc.). -->
+  <script>window.Prism = window.Prism || {}; Prism.manual = true;</script>
+  <!-- Prism core + autoloader (loads language grammars on demand) -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <!-- Prism line-numbers plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <!-- Prism toolbar + copy-to-clipboard plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <!-- show-language plugin: displays the language label in the toolbar -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+  <script src="/assets/js/code-enhance.js"></script>
+</body>
+</html>

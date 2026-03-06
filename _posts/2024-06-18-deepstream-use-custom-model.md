@@ -1,3 +1,8 @@
+---
+layout: post
+title: "DeepStream Use Custom Model"
+date: 2024-06-18
+---
 [Using a Custom Model with DeepStream — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_using_custom_model.html)
 
 deepstream流程支持使用自定义的模型来进行推理, 插件为nvinfer

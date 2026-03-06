@@ -1,3 +1,8 @@
+---
+layout: post
+title: "DeepStream Plugin - Gst-nvdspreprocess"
+date: 2024-06-18
+---
 [Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdspreprocess.html)
 推理模块前的预处理模块
 在需要的时候可以作为获取模型输入层数据的途径

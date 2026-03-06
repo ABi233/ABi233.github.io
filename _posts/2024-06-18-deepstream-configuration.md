@@ -1,3 +1,8 @@
+---
+layout: post
+title: "DeepStream Configuration"
+date: 2024-06-18
+---
 # 配置组
 |**配置组名**|**配置内容**|
 |:-:|-|
