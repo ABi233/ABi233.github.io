@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Plugin - Gst-nvtracker"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 # gst plugin introduce
 [Gst-nvtracker — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvtracker.html#gst-nvtracker)

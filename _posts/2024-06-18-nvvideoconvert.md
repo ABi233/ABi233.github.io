@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Plugin - Gst-nvvideoconvert"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 [Gst-nvvideoconvert — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvvideoconvert.html#gst-nvvideoconvert)
 

@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Use Custom Model"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 [Using a Custom Model with DeepStream — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_using_custom_model.html)
 

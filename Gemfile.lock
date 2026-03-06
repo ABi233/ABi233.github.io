@@ -4,6 +4,13 @@ GEM
     addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
+    beautiful-jekyll-theme (6.0.1)
+      jekyll (>= 3.9.3)
+      jekyll-paginate (~> 1.1)
+      jekyll-sitemap (~> 1.4)
+      kramdown (~> 2.3.2)
+      kramdown-parser-gfm (~> 1.1)
+      webrick (~> 1.8)
     bigdecimal (4.0.1)
     colorator (1.1.0)
     concurrent-ruby (1.3.6)
@@ -73,18 +80,16 @@ GEM
       safe_yaml (~> 1.0)
       terminal-table (>= 1.8, < 4.0)
       webrick (~> 1.7)
+    jekyll-paginate (1.1.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
-    jekyll-seo-tag (2.8.0)
-      jekyll (>= 3.8, < 5.0)
-    jekyll-theme-cayman (0.2.0)
-      jekyll (> 3.5, < 5.0)
-      jekyll-seo-tag (~> 2.0)
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     json (2.18.1)
-    kramdown (2.5.2)
-      rexml (>= 3.4.4)
+    kramdown (2.3.2)
+      rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.4)
@@ -162,12 +167,15 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  beautiful-jekyll-theme (= 6.0.1)
   jekyll (~> 4.3)
-  jekyll-theme-cayman
+  jekyll-paginate
+  jekyll-sitemap
 
 CHECKSUMS
   addressable (2.8.9) sha256=cc154fcbe689711808a43601dee7b980238ce54368d23e127421753e46895485
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
+  beautiful-jekyll-theme (6.0.1) sha256=677a459eb1778f0d50068c5cc9f49789687c673d8c400b4ae8712a2e03e640a4
   bigdecimal (4.0.1) sha256=8b07d3d065a9f921c80ceaea7c9d4ae596697295b584c296fe599dd0ad01c4a7
   colorator (1.1.0) sha256=e2f85daf57af47d740db2a32191d1bdfb0f6503a0dfbc8327d0c9154d5ddfc38
   concurrent-ruby (1.3.6) sha256=6b56837e1e7e5292f9864f34b69c5a2cbc75c0cf5338f1ce9903d10fa762d5ab
@@ -198,12 +206,12 @@ CHECKSUMS
   http_parser.rb (0.8.1) sha256=9ae8df145b39aa5398b2f90090d651c67bd8e2ebfe4507c966579f641e11097a
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   jekyll (4.4.1) sha256=4c1144d857a5b2b80d45b8cf5138289579a9f8136aadfa6dd684b31fe2bc18c1
+  jekyll-paginate (1.1.0) sha256=880aadf4b02529a93541d508c5cbb744f014cbfc071d0263a31f25ec9066eb64
   jekyll-sass-converter (3.1.0) sha256=83925d84f1d134410c11d0c6643b0093e82e3a3cf127e90757a85294a3862443
-  jekyll-seo-tag (2.8.0) sha256=3f2ed1916d56f14ebfa38e24acde9b7c946df70cb183af2cb5f0598f21ae6818
-  jekyll-theme-cayman (0.2.0) sha256=3c5f14f9c72a8eb03ecc74f9a3e5ecbbc55f9381339978b42dec216921865f2a
+  jekyll-sitemap (1.4.0) sha256=0de08c5debc185ea5a8f980e1025c7cd3f8e0c35c8b6ef592f15c46235cf4218
   jekyll-watch (2.2.1) sha256=bc44ed43f5e0a552836245a54dbff3ea7421ecc2856707e8a1ee203a8387a7e1
   json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
-  kramdown (2.5.2) sha256=1ba542204c66b6f9111ff00dcc26075b95b220b07f2905d8261740c82f7f02fa
+  kramdown (2.3.2) sha256=cb4530c2e9d16481591df2c9336723683c354e5416a5dd3e447fa48215a6a71c
   kramdown-parser-gfm (1.1.0) sha256=fb39745516427d2988543bf01fc4cf0ab1149476382393e0e9c48592f6581729
   liquid (4.0.4) sha256=4fcfebb1a045e47918388dbb7a0925e7c3893e58d2bd6c3b3c73ec17a2d8fdb3
   listen (3.10.0) sha256=c6e182db62143aeccc2e1960033bebe7445309c7272061979bb098d03760c9d2

@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Struct - NvDsFrameMeta"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 - **FrameMeta**：FrameMeta 是单个视频帧的元数据。它包含了关于这一帧的详细信息，如检测到的对象、帧编号、流ID等。在一个 BatchMeta 中，可以有多个 FrameMeta，每个 FrameMeta 对应一个视频帧。
 

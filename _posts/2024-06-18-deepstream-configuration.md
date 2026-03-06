@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Configuration"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 # 配置组
 |**配置组名**|**配置内容**|

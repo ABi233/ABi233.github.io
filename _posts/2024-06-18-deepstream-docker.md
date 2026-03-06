@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Docker"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 # Docker description
 ## DS 6.4

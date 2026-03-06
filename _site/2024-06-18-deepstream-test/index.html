@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 6.0.1 | Copyright Dean Attali 2023 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Deepstream Test 学习笔记</title>
+
+  
+  <meta name="author" content="ABi233">
+  
+
+  <meta name="description" content="对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解 deepstream-test1可以学习如何使用deepstream插件来建立GStreamer流水线, 建立一个从视频文件-&amp;gt;解码-&amp;gt;批处理-&amp;gt;物体识别-&amp;gt;渲染识别结果框在屏幕上的流水线 deepstream-test2在test1的基础上级联2级模型 deepstream-test3展示如何使用多个视频流输入 deepstream-test4使用message broker插件来建立物联网服务 更多的sample app源码可以阅读 C/C++ Sample Apps Source Details and Python Sample Apps and Bindings Source Details. C/C++ Sample Apps Source Details https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html#c-c-sample-apps-source-details 几个有用的test源码 test1完成了从源获取到推理结果输出的全流程pipeline osd_sink_pad_buffer_probe函数中展示了获取推理matedata的过程 更多的细节可以参考gstnvdsmeta.h test2在test1的基础上级联2级模型, 并且加上tracker test3在test1的基础上, 加上多个源输入以及不同源方式输入, 并且使用streammux来batch frame, 达到比较好的资源利用效率 test4在test1基础上, 加上message部分 test5在test1基础上, 加上report callback部分(需要研究一下) Yolo detector, 包含配置文件以及自定义库实现(?), 当前包含Yolo v2, v2 tiny, v3,...">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Abi NoteBook">
+  <meta property="og:title" content="Deepstream Test 学习笔记">
+  <meta property="og:description" content="对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解 deepstream-test1可以学习如何使用deepstream插件来建立GStreamer流水线, 建立一个从视频文件-&amp;gt;解码-&amp;gt;批处理-&amp;gt;物体识别-&amp;gt;渲染识别结果框在屏幕上的流水线 deepstream-test2在test1的基础上级联2级模型 deepstream-test3展示如何使用多个视频流输入 deepstream-test4使用message broker插件来建立物联网服务 更多的sample app源码可以阅读 C/C++ Sample Apps Source Details and Python Sample Apps and Bindings Source Details. C/C++ Sample Apps Source Details https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html#c-c-sample-apps-source-details 几个有用的test源码 test1完成了从源获取到推理结果输出的全流程pipeline osd_sink_pad_buffer_probe函数中展示了获取推理matedata的过程 更多的细节可以参考gstnvdsmeta.h test2在test1的基础上级联2级模型, 并且加上tracker test3在test1的基础上, 加上多个源输入以及不同源方式输入, 并且使用streammux来batch frame, 达到比较好的资源利用效率 test4在test1基础上, 加上message部分 test5在test1基础上, 加上report callback部分(需要研究一下) Yolo detector, 包含配置文件以及自定义库实现(?), 当前包含Yolo v2, v2 tiny, v3,...">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="ABi233">
+  <meta property="og:article:published_time" content="2024-06-18T00:00:00+08:00">
+  <meta property="og:url" content="http://0.0.0.0:4000/2024-06-18-deepstream-test/">
+  <link rel="canonical" href="http://0.0.0.0:4000/2024-06-18-deepstream-test/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="Deepstream Test 学习笔记">
+  <meta property="twitter:description" content="对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解 deepstream-test1可以学习如何使用deepstream插件来建立GStreamer流水线, 建立一个从视频文件-&amp;gt;解码-&amp;gt;批处理-&amp;gt;物体识别-&amp;gt;渲染识别结果框在屏幕上的流水线 deepstream-test2在test1的基础上级联2级模型 deepstream-test3展示如何使用多个视频流输入 deepstream-test4使用message broker插件来建立物联网服务 更多的sample app源码可以阅读 C/C++ Sample Apps Source Details and Python Sample Apps and Bindings Source Details. C/C++ Sample Apps Source Details https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html#c-c-sample-apps-source-details 几个有用的test源码 test1完成了从源获取到推理结果输出的全流程pipeline osd_sink_pad_buffer_probe函数中展示了获取推理matedata的过程 更多的细节可以参考gstnvdsmeta.h test2在test1的基础上级联2级模型, 并且加上tracker test3在test1的基础上, 加上多个源输入以及不同源方式输入, 并且使用streammux来batch frame, 达到比较好的资源利用效率 test4在test1基础上, 加上message部分 test5在test1基础上, 加上report callback部分(需要研究一下) Yolo detector, 包含配置文件以及自定义库实现(?), 当前包含Yolo v2, v2 tiny, v3,...">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">Abi NoteBook</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tags">Tags</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvvideoconvert", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvvideoconvert/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvurisrcbin", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvurisrcbin/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvtracker", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvtracker/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvstreammux", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvstreammux/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvdspreprocess", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvpreprocess/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvinfer", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvinfer/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Plugin - Gst-nvdsosd", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-nvdsosd/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Use Custom Model", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-deepstream-use-custom-model/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Deepstream Test 学习笔记", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-deepstream-test/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Docker", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-deepstream-docker/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Configuration", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-deepstream-configuration/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream App", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-deepstream-app/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Struct - NvDsFrameMeta", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-NvDsFrameMeta/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "DeepStream Struct - NvDsBatchMeta", \
+          "category" : "NVIDIADeepStream", \
+          "url"      : "/2024-06-18-NvDsBatchMeta/", \
+          "date"     : "June 18, 2024" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About Me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Abi&#39;s NoteBook", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Abi&#39;s NoteBook", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Deepstream Test 学习笔记</h1>
+          
+
+          
+            <span class="post-meta">Posted on June 18, 2024</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解
+<img src="https://cdn.jsdelivr.net/gh/ABi233/pic-upload/obs/202310091415015.png" alt="Pasted image 20230801171301.png" /></p>
+
+<ul>
+  <li>deepstream-test1可以学习如何使用deepstream插件来建立GStreamer流水线, 建立一个从视频文件-&gt;解码-&gt;批处理-&gt;物体识别-&gt;渲染识别结果框在屏幕上的流水线</li>
+  <li>deepstream-test2在test1的基础上级联2级模型</li>
+  <li>deepstream-test3展示如何使用多个视频流输入</li>
+  <li>deepstream-test4使用message broker插件来建立物联网服务</li>
+</ul>
+
+<p>更多的sample app源码可以阅读 <a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a> and <a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a>.</p>
+
+<h1 id="cc-sample-apps-source-details">C/C++ Sample Apps Source Details</h1>
+
+<p>https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_C_Sample_Apps.html#c-c-sample-apps-source-details</p>
+
+<p><strong>几个有用的test源码</strong></p>
+
+<ul>
+  <li>test1完成了从源获取到推理结果输出的全流程pipeline
+    <ul>
+      <li>osd_sink_pad_buffer_probe函数中展示了获取推理matedata的过程</li>
+      <li>更多的细节可以参考gstnvdsmeta.h</li>
+    </ul>
+  </li>
+  <li>test2在test1的基础上级联2级模型, 并且加上tracker</li>
+  <li>test3在test1的基础上, 加上多个源输入以及不同源方式输入, 并且使用streammux来batch frame, 达到比较好的资源利用效率</li>
+  <li>test4在test1基础上, 加上message部分</li>
+  <li>test5在test1基础上, 加上report callback部分(需要研究一下)</li>
+  <li>Yolo detector, 包含配置文件以及自定义库实现(?), 当前包含Yolo v2, v2 tiny, v3, and v3 tiny</li>
+</ul>
+
+<h1 id="源码阅读">源码阅读</h1>
+
+<h2 id="deepstream-test1">deepstream-test1</h2>
+
+<h3 id="main">main</h3>
+
+<p>使用gst流程构建pipeline</p>
+
+<p>element, pipeline创建和属性设置就是gst流程</p>
+
+<p>配置pgie依旧使用object_set操作</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Set all the necessary properties of the nvinfer element,
+* the necessary ones are : */</span>
+<span class="n">g_object_set</span> <span class="p">(</span><span class="n">G_OBJECT</span> <span class="p">(</span><span class="n">pgie</span><span class="p">),</span> <span class="s">"config-file-path"</span><span class="p">,</span> <span class="s">"dstest1_pgie_config.txt"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="c1">//配置的就是configuration group中的字段</span>
+<span class="c1">//如果需要手动配置其他字段, 也需要手动补上</span>
+</code></pre></div></div>
+
+<p>使用yaml文件配置element有了属于deepstream的接口:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">yaml_config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//使用yaml parse api来读取yml文件配置不同的group</span>
+    <span class="n">RETURN_ON_PARSER_ERROR</span><span class="p">(</span><span class="n">nvds_parse_file_source</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">"source"</span><span class="p">));</span>
+    <span class="n">RETURN_ON_PARSER_ERROR</span><span class="p">(</span><span class="n">nvds_parse_streammux</span><span class="p">(</span><span class="n">streammux</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">"streammux"</span><span class="p">));</span>
+
+    <span class="cm">/* Set all the necessary properties of the inference element */</span>
+    <span class="n">RETURN_ON_PARSER_ERROR</span><span class="p">(</span><span class="n">nvds_parse_gie</span><span class="p">(</span><span class="n">pgie</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">"primary-gie"</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="bus_call">bus_call</h3>
+
+<p>拉起一个新的线程来处理任务消息</p>
+
+<p>被<a href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstbus.html#gst_bus_add_watch">gst_bus_add_watch()</a>调用, 是一个回调函数, 常被用于在mian loop中获取异步消息</p>
+
+<h3 id="osd_sink_pad_buffer_probe">osd_sink_pad_buffer_probe</h3>
+
+<ul>
+  <li>获取nvinfer的metadata, 并且通过osd显示
+    <ul>
+      <li>遍历batch数据中的每一帧, 读取framemeta中的objectmeta, 通过设置displaymeta将数据打在一条label上</li>
+    </ul>
+  </li>
+</ul>
+
+<p>被<a href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstpad.html#gst_pad_add_probe">gst_pad_add_probe()</a>调用, 也是一个回调函数, 在pad状态发生改变的时候发出通知，为匹配mask的状态来调用提供的回调函数</p>
+
+<p>函数原型:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gulong</span><span class="p">(</span><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="n">gst_pad_add_probe</span> <span class="p">(</span><span class="n">GstPad</span> <span class="o">*</span> <span class="n">pad</span><span class="p">,</span>
+                    <span class="n">GstPadProbeType</span> <span class="n">mask</span><span class="p">,</span>
+                    <span class="n">GstPadProbeCallback</span> <span class="n">callback</span><span class="p">,</span>
+                    <span class="n">gpointer</span> <span class="n">user_data</span><span class="p">,</span>
+                    <span class="n">GDestroyNotify</span> <span class="n">destroy_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>对于display_meta的配置</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GstBuffer</span> <span class="o">*</span><span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="n">GstBuffer</span> <span class="o">*</span><span class="p">)</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="n">NvDsBatchMeta</span> <span class="o">*</span><span class="n">batch_meta</span> <span class="o">=</span> <span class="n">gst_buffer_get_nvds_batch_meta</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="n">NvDsDisplayMeta</span> <span class="o">*</span><span class="n">display_meta</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="p">...</span> <span class="c1">//获取batch_meta内的元数据</span>
+
+<span class="c1">//通过batch_meta中的display_meta_pool获得一个display_meta数据</span>
+<span class="n">display_meta</span> <span class="o">=</span> <span class="n">nvds_acquire_display_meta_from_pool</span><span class="p">(</span><span class="n">batch_meta</span><span class="p">);</span>
+<span class="c1">//创建一个osd_textparams</span>
+<span class="n">NvOSD_TextParams</span> <span class="o">*</span><span class="n">txt_params</span>  <span class="o">=</span> <span class="o">&amp;</span><span class="n">display_meta</span><span class="o">-&gt;</span><span class="n">text_params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">//设置当前display_meta中显示的label数</span>
+<span class="c1">//查看数据结构得知还可以配置矩形框, 线条, 箭头, 圆圈元素的数量</span>
+<span class="n">display_meta</span><span class="o">-&gt;</span><span class="n">num_labels</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">//临时申请用于显示字符串的内存</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">display_text</span> <span class="o">=</span> <span class="n">g_malloc0</span> <span class="p">(</span><span class="n">MAX_DISPLAY_LEN</span><span class="p">);</span>
+<span class="c1">//输入需要显示的格式化字符串</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="n">snprintf</span><span class="p">(</span><span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">display_text</span><span class="p">,</span> <span class="n">MAX_DISPLAY_LEN</span><span class="p">,</span> <span class="s">"Person = %d "</span><span class="p">,</span> <span class="n">person_count</span><span class="p">);</span>
+<span class="c1">//通过上一条字符串长度的偏移, 可以设置下一条内存地址连续的字符串</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="n">snprintf</span><span class="p">(</span><span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">display_text</span> <span class="o">+</span> <span class="n">offset</span> <span class="p">,</span> <span class="n">MAX_DISPLAY_LEN</span><span class="p">,</span> <span class="s">"Vehicle = %d "</span><span class="p">,</span> <span class="n">vehicle_count</span><span class="p">);</span>
+
+<span class="cm">/* Now set the offsets where the string should appear */</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">x_offset</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">y_offset</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+
+<span class="cm">/* Font , font-color and font-size */</span>
+<span class="c1">//c++中不能使用这样string to char*的隐式转换方法</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_name</span> <span class="o">=</span> <span class="s">"Serif"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">cpp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">font_name_char</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Serif"</span><span class="p">;</span>
+    <span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_name</span> <span class="o">=</span> <span class="n">font_name_char</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_color</span><span class="p">.</span><span class="n">red</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_color</span><span class="p">.</span><span class="n">green</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_color</span><span class="p">.</span><span class="n">blue</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">font_params</span><span class="p">.</span><span class="n">font_color</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+<span class="cm">/* Text background color */</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">set_bg_clr</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">text_bg_clr</span><span class="p">.</span><span class="n">red</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">text_bg_clr</span><span class="p">.</span><span class="n">green</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">text_bg_clr</span><span class="p">.</span><span class="n">blue</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+<span class="n">txt_params</span><span class="o">-&gt;</span><span class="n">text_bg_clr</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+<span class="c1">//将配置完毕的display_meta加入到frame_meta中</span>
+<span class="n">nvds_add_display_meta_to_frame</span><span class="p">(</span><span class="n">frame_meta</span><span class="p">,</span> <span class="n">display_meta</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="deepstream-test2">deepstream-test2</h2>
+
+<p>pipeline构建流程与test1基本一致, 多了tracker和sgie的创建, 基本就是创建GSTElement对象加上配置confige-file-path参数</p>
+
+<h2 id="deepstream-test3">deepstream-test3</h2>
+
+<p>pipeline与test1类似, 在输入级使用queue来进行多个源队列输入, 能够输入uri</p>
+
+<h3 id="create_source_bin">create_source_bin</h3>
+
+<p>使用nvurisrcbin插件来接受&amp;解码输入数据</p>
+
+<p>g_signal_connect处理decodebin的pad-added和child-added信号, 通过自定义的回调函数来创建pad</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/* Connect to the "pad-added" signal of the decodebin which generates a
+   * callback once a new pad for raw data has beed created by the decodebin */</span>
+  <span class="n">g_signal_connect</span> <span class="p">(</span><span class="n">G_OBJECT</span> <span class="p">(</span><span class="n">uri_decode_bin</span><span class="p">),</span> <span class="s">"pad-added"</span><span class="p">,</span>
+      <span class="n">G_CALLBACK</span> <span class="p">(</span><span class="n">cb_newpad</span><span class="p">),</span> <span class="n">bin</span><span class="p">);</span>
+  <span class="n">g_signal_connect</span> <span class="p">(</span><span class="n">G_OBJECT</span> <span class="p">(</span><span class="n">uri_decode_bin</span><span class="p">),</span> <span class="s">"child-added"</span><span class="p">,</span>
+      <span class="n">G_CALLBACK</span> <span class="p">(</span><span class="n">decodebin_child_added</span><span class="p">),</span> <span class="n">bin</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="cb_newpad">cb_newpad</h3>
+
+<h3 id="decodebin_child_added">decodebin_child_added</h3>
+
+<h2 id="deepstream-image-decode-test">deepstream-image-decode-test</h2>
+
+<p>输入jpeg/mjpg图片来进行推理流程</p>
+
+<h3 id="main-1">main</h3>
+
+<p>pipeline流程比较类似test3</p>
+
+<p>输入图片队列组合成一个source_bin, 其中直接连接filesrc-&gt;jpegparse-&gt;nvv4l2decoder, source_bin连接到streammux</p>
+
+<p>之后进行常规的pipeline连接</p>
+
+<p>source_bin通过src pad与streammux的sink_%n pad连接起来(因为输入图片有多个, streammux的sink pad也有多个)</p>
+
+<h2 id="deepstream-image-meta-test">deepstream-image-meta-test</h2>
+
+<p>对检测模型的推理结果进行抠图, 并且保存成jpg图片输出, 可以直接用于下一级模型或者element(数据在显存未搬移)</p>
+
+<h3 id="main-2">main</h3>
+
+<p>pipeline和image-decode-test一致, 添加了两个接口<code class="language-plaintext highlighter-rouge">osd_sink_pad_buffer_probe</code>和<code class="language-plaintext highlighter-rouge">pgie_src_pad_buffer_probe</code>用于抠图与图片保存</p>
+
+<h3 id="osd_sink_pad_buffer_probe-1">osd_sink_pad_buffer_probe</h3>
+
+<p>在osd sink pad上添加探针, 获取osd输入数据</p>
+
+<p>保存jpg图片</p>
+
+<h3 id="pgie_src_pad_buffer_probe">pgie_src_pad_buffer_probe</h3>
+
+<p>在pgie src pad上添加探针, 获取pgie输出数据</p>
+
+<p>将检测到的对象编码为jpeg数据</p>
+
+<h2 id="deepstream-infer-tensor-meta-test">deepstream-infer-tensor-meta-test</h2>
+
+<p>用于获取nvinfer插件的输出tensor data, 包含detector和classifier</p>
+
+<h3 id="main-3">main</h3>
+
+<p>streammux和source参考image-decode-test, 类似组成一个source-bin, 其中连接顺序为source-&gt;parser-&gt;decoder</p>
+
+<p>将decoder连接到streammux的指定sink pad上, 再由streammux连接pipeline中的下游element</p>
+
+<p>streammux与下游element连接顺序:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gst_element_link_many</span> <span class="p">(</span><span class="n">streammux</span><span class="p">,</span> <span class="n">pgie</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">sgie1</span><span class="p">,</span> <span class="n">queue5</span><span class="p">,</span>
+          <span class="n">sgie2</span><span class="p">,</span> <span class="n">queue6</span><span class="p">,</span> <span class="n">sgie3</span><span class="p">,</span> <span class="n">queue2</span><span class="p">,</span> <span class="n">tiler</span><span class="p">,</span> <span class="n">queue3</span><span class="p">,</span> <span class="n">nvvidconv</span><span class="p">,</span> <span class="n">queue4</span><span class="p">,</span> <span class="n">nvosd</span><span class="p">,</span>
+          <span class="n">sink</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>其中所有的gie推理插件都连接到一个queue, 最后在tiler中组合batch, 进行颜色转换与osd输出</p>
+
+<p>使用<code class="language-plaintext highlighter-rouge">osd_sink_pad_buffer_probe</code>接口来获取osd sink pad接口数据
+使用<code class="language-plaintext highlighter-rouge">pgie_pad_buffer_probe</code>接口来获取pgie src pad接口数据
+使用<code class="language-plaintext highlighter-rouge">sgie_pad_buffer_probe</code>接口来获取tiler sink pad接口数据, 也就是所有模型推理结果保存在queue中的数据</p>
+
+<h3 id="osd_sink_pad_buffer_probe-2">osd_sink_pad_buffer_probe</h3>
+
+<p>获取detector检测结果(检测对象数量统计), 输出在osd界面上</p>
+
+<h3 id="pgie_pad_buffer_probe">pgie_pad_buffer_probe</h3>
+
+<blockquote>
+  <p>PGIE element in the pipeline shall attach its NvDsInferTensorMeta to each frame metadata on GstBuffer, here we will iterate &amp; parse the tensor data to get detection bounding boxes. The result would be attached as object-meta(NvDsObjectMeta) into the same frame metadata.</p>
+</blockquote>
+
+<p>pgie在GstBuffer数据的每个metadata frame中保存NvDsInferTensorMeta数据, 在这个接口中将会迭代和解析tensor data以及获取detector的bbox, bbox数据以NvDsObjectMeta结构保存在GstBuffer数据的每个metadata frame中</p>
+
+<p>调用detector后处理接口<code class="language-plaintext highlighter-rouge">NvDsInferParseCustomResnet</code>来处理检测模型输出的bbox坐标转换</p>
+
+<ul>
+  <li>基本可以了解infer在detector流程中是怎么处理数据的</li>
+</ul>
+
+<p>通过得到的输出信息配置bbox以及显示框的坐标, 边框样式等信息</p>
+
+<h3 id="sgie_pad_buffer_probe">sgie_pad_buffer_probe</h3>
+
+<blockquote>
+  <p>All SGIE infer elements in the pipeline shall attach their NvDsInferTensorMeta to each object’s metadata of each frame, here we will iterate &amp; parse the tensor data to get classification confidence and labels. The result would be attached as classifier_meta into its object’s metadata.</p>
+</blockquote>
+
+<p>sgie保存数据的形式和pgie一致, 在每个frame的object’s meatedata中保存NvDsInferTensorMeta数据, 在这个接口中迭代和解析tensor data用于获取分类置信度和标签, 这些数据以classifier_meta的形式保存在object’s metadata中</p>
+
+<p>从GstBuffer到NvDsInferTensorMeta的流程和<code class="language-plaintext highlighter-rouge">pgie_pad_buffer_probe</code>基本一致, 拿到meta后, 对其中的output layer数据进行处理, 过程基本和/libs/nvdsinfer_customparser/nvdsinfer_customclassifierparser.cpp一致</p>
+
+<ul>
+  <li>获取矩阵深度</li>
+  <li>遍历矩阵取出特征值/分类概率值(置信度)</li>
+</ul>
+
+<p>将classifier metadata填充到obj meta中
+配置显示分类标签的参数</p>
+
+<p>获取输出层数据的数据结构包含关系可见:
+<img src="https://cdn.jsdelivr.net/gh/ABi233/pic-upload/obs/202310091415369.png" alt="deepstream_custom_model.drawio.png" /></p>
+
+<h2 id="deepstream-appsrc-test">deepstream-appsrc-test</h2>
+
+<p>根据这个test所做的实例sample可以看[[使用appsrc组件的复用流水线搭建]]</p>
+
+<p>和其他几个test的流水线区别主要在appsrc和appsink</p>
+
+<h3 id="main-4">main</h3>
+
+<p>设计了一个AppSrcData结构体来保存appsrc组件内数据的信息</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Structure to contain all our information for appsrc,
+ * so we can pass it to callbacks */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">_AppSrcData</span>
+<span class="p">{</span>
+  <span class="n">GstElement</span> <span class="o">*</span><span class="n">app_source</span><span class="p">;</span>
+  <span class="kt">long</span> <span class="n">frame_size</span><span class="p">;</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">file</span><span class="p">;</span>                   <span class="cm">/* Pointer to the raw video file */</span>
+  <span class="n">gint</span> <span class="n">appsrc_frame_num</span><span class="p">;</span>
+  <span class="n">guint</span> <span class="n">fps</span><span class="p">;</span>                    <span class="cm">/* To set the FPS value */</span>
+  <span class="n">guint</span> <span class="n">sourceid</span><span class="p">;</span>               <span class="cm">/* To control the GSource */</span>
+<span class="p">}</span> <span class="n">AppSrcData</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>首先配置AppSrcData对象的像素格式, 长宽, 帧率(这些数据都是可执行文件的参数配置的)</p>
+
+<p>创建appsrc和appsink组件</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* App Source element for reading from raw video file */</span>
+<span class="n">data</span><span class="p">.</span><span class="n">app_source</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span> <span class="p">(</span><span class="s">"appsrc"</span><span class="p">,</span> <span class="s">"app-source"</span><span class="p">);</span>
+
+<span class="n">appsink</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span> <span class="p">(</span><span class="s">"appsink"</span><span class="p">,</span> <span class="s">"app-sink"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>配置appsrc组件的caps属性</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Configure appsrc */</span>
+<span class="n">g_object_set</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">app_source</span><span class="p">,</span> <span class="s">"caps"</span><span class="p">,</span>
+  <span class="n">gst_caps_new_simple</span> <span class="p">(</span><span class="s">"video/x-raw"</span><span class="p">,</span>
+      <span class="s">"format"</span><span class="p">,</span> <span class="n">G_TYPE_STRING</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span>
+      <span class="s">"width"</span><span class="p">,</span> <span class="n">G_TYPE_INT</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span>
+      <span class="s">"height"</span><span class="p">,</span> <span class="n">G_TYPE_INT</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
+      <span class="s">"framerate"</span><span class="p">,</span> <span class="n">GST_TYPE_FRACTION</span><span class="p">,</span> <span class="n">data</span><span class="p">.</span><span class="n">fps</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">),</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="cp">#if !CUSTOM_PTS
+</span><span class="c1">//如果 `CUSTOM_PTS` 未定义，`appsrc` 将自动为每个缓冲区添加时间戳（`do-timestamp` 设置为 `TRUE`）。这对于同步很重要，特别是在处理实时数据时</span>
+<span class="n">g_object_set</span> <span class="p">(</span><span class="n">G_OBJECT</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">app_source</span><span class="p">),</span> <span class="s">"do-timestamp"</span><span class="p">,</span> <span class="n">TRUE</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="cp">#endif
+</span><span class="c1">//将信号与回调函数连接</span>
+<span class="c1">//当 `appsrc` 需要更多数据时，将触发 `need-data` 信号，此时调用 `start_feed` 函数</span>
+<span class="n">g_signal_connect</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">app_source</span><span class="p">,</span> <span class="s">"need-data"</span><span class="p">,</span> <span class="n">G_CALLBACK</span> <span class="p">(</span><span class="n">start_feed</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+<span class="c1">//当 `appsrc` 有足够的数据时，将触发 `enough-data` 信号，此时调用 `stop_feed` 函数</span>
+<span class="n">g_signal_connect</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">app_source</span><span class="p">,</span> <span class="s">"enough-data"</span><span class="p">,</span> <span class="n">G_CALLBACK</span> <span class="p">(</span><span class="n">stop_feed</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>appsrc-test流水线连接顺序:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app-source -&gt; nvvidconv -&gt; caps filter -&gt; nvinfer -&gt; nvvidconv -&gt; tee
+    tee -&gt; nvosd -&gt; sink
+    tee -&gt; appsink
+</code></pre></div></div>
+
+<p>通过tee来把流水线的输出分为两路, 一路通过osd输出给屏幕渲染器, 一路输出给appsink, 通过API获取推理后的meta data做后续处理</p>
+
+<h3 id="start_feed">start_feed</h3>
+
+<p>添加一个用于主循环的idle handler, 用来给appsrc推送数据</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//将 `read_data` 函数添加到主循环中，确保在空闲时调用 `read_data` 函数</span>
+<span class="n">data</span><span class="o">-&gt;</span><span class="n">sourceid</span> <span class="o">=</span> <span class="n">g_idle_add</span> <span class="p">((</span><span class="n">GSourceFunc</span><span class="p">)</span> <span class="n">read_data</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="read_data">read_data</h3>
+
+<ul>
+  <li>
+    <p>创建和填充GstBuffer</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">GstBuffer</span> <span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+
+  <span class="kt">size_t</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">GstMapInfo</span> <span class="n">map</span><span class="p">;</span>
+
+  <span class="c1">//创建一个新的gstbuffer</span>
+  <span class="n">buffer</span> <span class="o">=</span> <span class="n">gst_buffer_new_allocate</span> <span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">frame_size</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="c1">//把map映射到buffer上</span>
+  <span class="n">gst_buffer_map</span> <span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">map</span><span class="p">,</span> <span class="n">GST_MAP_WRITE</span><span class="p">);</span>
+
+  <span class="c1">//map填充实际的数据流</span>
+  <span class="n">ret</span> <span class="o">=</span> <span class="n">fread</span> <span class="p">(</span><span class="n">map</span><span class="p">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">frame_size</span><span class="p">,</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">file</span><span class="p">);</span>
+  <span class="n">map</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">ret</span><span class="p">;</span>
+  <span class="c1">//释放buffer和map的映射</span>
+  <span class="n">gst_buffer_unmap</span> <span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">map</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>为appsrc填充buffer数据</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//使用gst_app_src_push_buffer将gstbuffer中的数据推送到appsrc中</span>
+  <span class="n">gstret</span> <span class="o">=</span> <span class="n">gst_app_src_push_buffer</span> <span class="p">((</span><span class="n">GstAppSrc</span> <span class="o">*</span><span class="p">)</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">app_source</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">gstret</span> <span class="o">!=</span> <span class="n">GST_FLOW_OK</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//检查推送操作的返回值是否正常</span>
+      <span class="n">g_print</span> <span class="p">(</span><span class="s">"gst_app_src_push_buffer returned %d </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gstret</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>处理EOF/EOS</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//如果 `ret == 0`，表示文件已经读取完毕，发送 End Of Stream（EOS）信号到 `appsrc`</span>
+  <span class="n">gstret</span> <span class="o">=</span> <span class="n">gst_app_src_end_of_stream</span> <span class="p">((</span><span class="n">GstAppSrc</span> <span class="o">*</span><span class="p">)</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">app_source</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">gstret</span> <span class="o">!=</span> <span class="n">GST_FLOW_OK</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">g_print</span><span class="p">(</span><span class="s">"gst_app_src_end_of_stream returned %d. EoS not queued successfully.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gstret</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="stop_feed">stop_feed</h3>
+
+<p>停止为appsrc推送数据, 并且从主循环中把idle handler移除</p>
+
+<h2 id="deepstream-user-metadata-test">deepstream-user-metadata-test</h2>
+
+<p>这个sample用于介绍如何在probe中配置自定义的metadata</p>
+
+<h3 id="main-5">main</h3>
+
+<p>一条正常的流水线, nvinfer-&gt;nvosd</p>
+
+<h3 id="set_metadata_ptr">set_metadata_ptr</h3>
+
+<p>自定义user meta的创建&amp;初始化实现</p>
+
+<ul>
+  <li>使用g_malloc0进行内存申请</li>
+  <li>在data中填入16位随机数</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="o">*</span><span class="nf">set_metadata_ptr</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">gchar</span> <span class="o">*</span><span class="n">user_metadata</span> <span class="o">=</span> <span class="p">(</span><span class="n">gchar</span><span class="o">*</span><span class="p">)</span><span class="n">g_malloc0</span><span class="p">(</span><span class="n">USER_ARRAY_SIZE</span><span class="p">);</span>
+
+  <span class="n">g_print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">**************** Setting user metadata array of 16 on nvinfer src pad</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">USER_ARRAY_SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">user_metadata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">255</span><span class="p">;</span>
+    <span class="n">g_print</span><span class="p">(</span><span class="s">"user_meta_data [%d] = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">user_metadata</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">user_metadata</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="copy_user_meta">copy_user_meta</h3>
+
+<p>自定义user meta的拷贝实现</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* copy function set by user. "data" holds a pointer to NvDsUserMeta*/</span>
+<span class="k">static</span> <span class="n">gpointer</span> <span class="nf">copy_user_meta</span><span class="p">(</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">NvDsUserMeta</span> <span class="o">*</span><span class="n">user_meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">NvDsUserMeta</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
+  <span class="n">gchar</span> <span class="o">*</span><span class="n">src_user_metadata</span> <span class="o">=</span> <span class="p">(</span><span class="n">gchar</span><span class="o">*</span><span class="p">)</span><span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">user_meta_data</span><span class="p">;</span>
+  <span class="n">gchar</span> <span class="o">*</span><span class="n">dst_user_metadata</span> <span class="o">=</span> <span class="p">(</span><span class="n">gchar</span><span class="o">*</span><span class="p">)</span><span class="n">g_malloc0</span><span class="p">(</span><span class="n">USER_ARRAY_SIZE</span><span class="p">);</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">dst_user_metadata</span><span class="p">,</span> <span class="n">src_user_metadata</span><span class="p">,</span> <span class="n">USER_ARRAY_SIZE</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">gpointer</span><span class="p">)</span><span class="n">dst_user_metadata</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="release_user_meta">release_user_meta</h3>
+
+<p>自定义user meta的释放实现</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* release function set by user. "data" holds a pointer to NvDsUserMeta*/</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">release_user_meta</span><span class="p">(</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">NvDsUserMeta</span> <span class="o">*</span><span class="n">user_meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">NvDsUserMeta</span> <span class="o">*</span><span class="p">)</span> <span class="n">data</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">user_meta_data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">g_free</span><span class="p">(</span><span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">user_meta_data</span><span class="p">);</span>
+    <span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">user_meta_data</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="nvinfer_src_pad_buffer_probe">nvinfer_src_pad_buffer_probe</h3>
+
+<p>调用以上内部接口来进行metadata的替换</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">NvDsMetaType</span> <span class="n">user_meta_type</span> <span class="o">=</span> <span class="n">NVDS_USER_FRAME_META_EXAMPLE</span><span class="p">;</span>
+  <span class="n">NvDsBatchMeta</span> <span class="o">*</span><span class="n">batch_meta</span> <span class="o">=</span> <span class="n">gst_buffer_get_nvds_batch_meta</span> <span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">l_frame</span> <span class="o">=</span> <span class="n">batch_meta</span><span class="o">-&gt;</span><span class="n">frame_meta_list</span><span class="p">;</span> <span class="n">l_frame</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
+      <span class="n">l_frame</span> <span class="o">=</span> <span class="n">l_frame</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NvDsFrameMeta</span> <span class="o">*</span><span class="n">frame_meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">NvDsFrameMeta</span> <span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="n">l_frame</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+
+        <span class="cm">/* Acquire NvDsUserMeta user meta from pool */</span>
+        <span class="c1">// NvDsFrameMeta * frame_meta-&gt;NvDsMetaPool * user_meta_pool</span>
+        <span class="n">user_meta</span> <span class="o">=</span> <span class="n">nvds_acquire_user_meta_from_pool</span><span class="p">(</span><span class="n">batch_meta</span><span class="p">);</span>
+
+        <span class="cm">/* Set NvDsUserMeta below */</span>
+        <span class="c1">//配置自定义的user_meta_data内容</span>
+        <span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">user_meta_data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">set_metadata_ptr</span><span class="p">();</span>
+        <span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">base_meta</span><span class="p">.</span><span class="n">meta_type</span> <span class="o">=</span> <span class="n">user_meta_type</span><span class="p">;</span>
+        <span class="c1">//自定义user meta的拷贝实现</span>
+        <span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">base_meta</span><span class="p">.</span><span class="n">copy_func</span> <span class="o">=</span> <span class="p">(</span><span class="n">NvDsMetaCopyFunc</span><span class="p">)</span><span class="n">copy_user_meta</span><span class="p">;</span>
+        <span class="c1">//自定义user meta的释放实现</span>
+        <span class="n">user_meta</span><span class="o">-&gt;</span><span class="n">base_meta</span><span class="p">.</span><span class="n">release_func</span> <span class="o">=</span> <span class="p">(</span><span class="n">NvDsMetaReleaseFunc</span><span class="p">)</span><span class="n">release_user_meta</span><span class="p">;</span>
+
+        <span class="cm">/* We want to add NvDsUserMeta to frame level */</span>
+        <span class="n">nvds_add_user_meta_to_frame</span><span class="p">(</span><span class="n">frame_meta</span><span class="p">,</span> <span class="n">user_meta</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+</code></pre></div></div>
+
+<h3 id="osd_sink_pad_buffer_probe-3">osd_sink_pad_buffer_probe</h3>
+
+<p>通过frame_meta-&gt;frame_user_meta_list获取user_meta数据, 打印填入的随机值, 验证metadata数据的替换是否成功</p>
+
+<h1 id="reference">reference</h1>
+
+<p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html#getting-started-with-building-apps">Getting started with building apps</a></p>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#NVIDIA">NVIDIA</a>
+          
+            <a href="/tags#DeepStream">DeepStream</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2024-06-18-deepstream-docker/" data-toggle="tooltip" data-placement="top" title="DeepStream Docker">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2024-06-18-deepstream-use-custom-model/" data-toggle="tooltip" data-placement="top" title="DeepStream Use Custom Model">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="https://github.com/ABi233" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        ABi233
+        &nbsp;&bull;&nbsp;
+      
+      2026
+
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

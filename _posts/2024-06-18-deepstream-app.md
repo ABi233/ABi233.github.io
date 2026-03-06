@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream App"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 [Nvidia DeepStream 101: DeepStream Tutorial | Medium | Medium](https://chirag4798.medium.com/nvidia-deepstream-101-a-step-by-step-guide-to-creating-your-first-deepstream-application-68148753cf96)
 

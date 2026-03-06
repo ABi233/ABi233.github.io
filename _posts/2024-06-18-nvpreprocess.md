@@ -2,6 +2,7 @@
 layout: post
 title: "DeepStream Plugin - Gst-nvdspreprocess"
 date: 2024-06-18
+tags: [NVIDIA, DeepStream]
 ---
 [Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com)](https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdspreprocess.html)
 推理模块前的预处理模块
