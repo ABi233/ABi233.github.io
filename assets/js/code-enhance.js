@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var postBody = document.querySelector('.post-body');
   if (!postBody) return;
 
-  var isRouge = postBody.querySelector('.highlighter-rouge') !== null;
+  var isRouge = postBody.querySelector('div.highlighter-rouge') !== null;
 
   if (isRouge) {
     // ── Path A: Rouge (GitHub Pages) ──────────────────────────────
@@ -44,7 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
    Path A  –  Rouge blocks
    ================================================================ */
 function enhanceRougeBlocks(root) {
-  root.querySelectorAll('.highlighter-rouge').forEach(function (wrapper) {
+  // IMPORTANT: use "div.highlighter-rouge" to skip inline <code> elements
+  // that Rouge also marks with class="… highlighter-rouge".
+  root.querySelectorAll('div.highlighter-rouge').forEach(function (wrapper) {
     // Determine language from the wrapper's class, e.g. "language-cpp"
     var lang = 'text';
     wrapper.classList.forEach(function (cls) {
