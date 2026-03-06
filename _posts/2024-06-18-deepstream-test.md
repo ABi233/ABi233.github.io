@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Deepstream Test 学习笔记"
 date: 2024-06-18
 ---

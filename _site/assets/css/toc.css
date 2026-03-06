@@ -1,0 +1,193 @@
+/* Minimal styling for post layout and TOC sidebar */
+:root{
+  --wrap-width: 980px;
+  --gutter: 24px;
+  --toc-width: 260px;
+}
+*{box-sizing:border-box}
+body{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.6;color:#222;margin:0}
+.wrap{max-width:var(--wrap-width);margin:0 auto;padding:0 16px}
+.site-header{background:#f7f7f7;border-bottom:1px solid #eee;padding:12px 0}
+.site-title{margin:0;font-size:20px}
+.site-title a{color:inherit;text-decoration:none}
+.layout{display:flex;gap:var(--gutter);align-items:flex-start;padding:28px 0}
+.content{flex:1;min-width:0}
+.post-title{margin:0 0 8px}
+.post-body img{max-width:100%;height:auto}
+.toc-sidebar{width:var(--toc-width);position:sticky;top:24px;height:calc(100vh - 48px);overflow:auto;padding:12px;border-left:1px solid #eee}
+.toc-sidebar h3{margin-top:0;font-size:14px}
+.toc-list{list-style:none;padding-left:0;margin:0}
+.toc-list li{margin:4px 0}
+.toc-list a{color:#333;text-decoration:none;font-size:13px}
+.toc-list a.active{font-weight:600;color:#007acc}
+
+/* nested indentation based on data-level */
+.toc-list li[data-level="2"]{padding-left:8px}
+.toc-list li[data-level="3"]{padding-left:16px}
+.toc-list li[data-level="4"]{padding-left:24px}
+
+/* responsive: hide toc on narrow screens */
+@media (max-width:900px){
+  .layout{flex-direction:column}
+  .toc-sidebar{display:none}
+}
+
+.site-footer{border-top:1px solid #eee;padding:18px 0;text-align:center;color:#666;font-size:13px}
+
+/* =====================================================
+   Code block styling  (Prism.js)
+   ===================================================== */
+
+/* ---- inline code ---- */
+.post-body :not(pre) > code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875em;
+  background: #f0f3f9;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #e1e4e8;
+  word-break: break-word;
+}
+
+/* ---- Outer wrapper: card with shadow & border ---- */
+.post-body div.code-toolbar {
+  margin: 1.5em 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2e3245;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
+  background: #282c34;
+  /* Use flex column so the title bar sits naturally above the code */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ---- Title bar ---- */
+.post-body div.code-toolbar::before {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: 36px;
+  background: #21252b;
+  border-bottom: 1px solid #181a1f;
+  /* dots drawn here, toolbar floats on top via absolute */
+  background-image: radial-gradient(circle, #ff5f57 6px, transparent 6px),
+                    radial-gradient(circle, #febc2e 6px, transparent 6px),
+                    radial-gradient(circle, #28c840 6px, transparent 6px);
+  background-size: 12px 12px;
+  background-position: 14px center, 34px center, 54px center;
+  background-repeat: no-repeat;
+}
+
+/* Remove old ::after dot trick */
+.post-body div.code-toolbar::after {
+  display: none;
+}
+
+/* ---- Language label + copy button bar (Prism toolbar) ---- */
+.post-body div.code-toolbar > .toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  opacity: 1 !important;
+  z-index: 10;
+}
+
+.post-body div.code-toolbar > .toolbar .toolbar-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Language label */
+.post-body div.code-toolbar > .toolbar .toolbar-item span {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #abb2bf;
+  background: transparent;
+  padding: 0 6px;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0 4px;
+}
+
+/* Copy button */
+.post-body div.code-toolbar > .toolbar .toolbar-item button {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 11px;
+  color: #abb2bf;
+  background: #2c313a;
+  border: 1px solid #3e4451;
+  padding: 3px 10px;
+  border-radius: 4px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.post-body div.code-toolbar > .toolbar .toolbar-item button:hover {
+  background: #3e4451;
+  color: #e5c07b;
+}
+
+/* ---- The <pre> block itself ---- */
+.post-body div.code-toolbar > pre[class*="language-"] {
+  margin: 0;
+  border-radius: 0;
+  font-size: 0.875em;
+  line-height: 1.7;
+  /* No negative margin needed; flex column handles stacking */
+  /* Ensure Prism's own text color is not overridden by body/theme defaults */
+  color: #abb2bf !important;
+  background: #282c34 !important;
+}
+
+/* ---- Reset <code> color inside pre so Prism tokens show correctly ---- */
+.post-body pre[class*="language-"] > code,
+.post-body pre[class*="language-"] code {
+  color: inherit !important;
+  background: transparent !important;
+  font-size: inherit;
+  padding: 0;
+  border: none;
+}
+
+/* ---- Line numbers (Prism line-numbers plugin) ---- */
+.post-body pre.line-numbers {
+  padding-left: 3.8em;
+}
+.post-body pre.line-numbers .line-numbers-rows {
+  border-right: 1px solid #3e4451;
+  padding-right: 4px;
+}
+.post-body pre.line-numbers .line-numbers-rows > span::before {
+  color: #4b5263;
+}
+
+/* ---- Language-specific accent colors on the label ---- */
+.post-body div.code-toolbar[data-lang="cpp"]    > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="c"]      > .toolbar .toolbar-item span { color: #61afef; }
+.post-body div.code-toolbar[data-lang="python"] > .toolbar .toolbar-item span { color: #e5c07b; }
+.post-body div.code-toolbar[data-lang="bash"]   > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="shell"]  > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="sh"]     > .toolbar .toolbar-item span { color: #98c379; }
+.post-body div.code-toolbar[data-lang="js"]     > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="javascript"] > .toolbar .toolbar-item span { color: #e5c07b; }
+.post-body div.code-toolbar[data-lang="yaml"]   > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="yml"]    > .toolbar .toolbar-item span { color: #56b6c2; }
+.post-body div.code-toolbar[data-lang="json"]   > .toolbar .toolbar-item span { color: #e06c75; }
+.post-body div.code-toolbar[data-lang="txt"]    > .toolbar .toolbar-item span,
+.post-body div.code-toolbar[data-lang="text"]   > .toolbar .toolbar-item span { color: #7d8799; }
+
+/* ---- scrollbar inside code blocks ---- */
+.post-body pre[class*="language-"]::-webkit-scrollbar { height: 6px; width: 6px; }
+.post-body pre[class*="language-"]::-webkit-scrollbar-track { background: transparent; }
+.post-body pre[class*="language-"]::-webkit-scrollbar-thumb { background: #4a4a5a; border-radius: 3px; }
+.post-body pre[class*="language-"]::-webkit-scrollbar-thumb:hover { background: #6a6a7a; }

@@ -1,0 +1,156 @@
+---
+---
+.post-body .highlight table td { padding: 5px; }
+.post-body .highlight table pre { margin: 0; }
+.post-body .highlight .c, .post-body .highlight .ch, .post-body .highlight .cd, .post-body .highlight .cm, .post-body .highlight .cpf, .post-body .highlight .c1 {
+  color: #888888;
+}
+.post-body .highlight .cp {
+  color: #cc0000;
+  font-weight: bold;
+}
+.post-body .highlight .cs {
+  color: #cc0000;
+  background-color: #fff0f0;
+  font-weight: bold;
+}
+.post-body .highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+.post-body .highlight .gr {
+  color: #aa0000;
+}
+.post-body .highlight .gh {
+  color: #333333;
+}
+.post-body .highlight .gu {
+  color: #666666;
+}
+.post-body .highlight .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+.post-body .highlight .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+.post-body .highlight .ge {
+  font-style: italic;
+}
+.post-body .highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.post-body .highlight .gs {
+  font-weight: bold;
+}
+.post-body .highlight .gl {
+  color: #888888;
+}
+.post-body .highlight .go {
+  color: #888888;
+}
+.post-body .highlight .gp {
+  color: #555555;
+}
+.post-body .highlight .gt {
+  color: #aa0000;
+}
+.post-body .highlight .k, .post-body .highlight .kc, .post-body .highlight .kd, .post-body .highlight .kn, .post-body .highlight .kr, .post-body .highlight .kv {
+  color: #008800;
+  font-weight: bold;
+}
+.post-body .highlight .kp {
+  color: #008800;
+}
+.post-body .highlight .kt {
+  color: #888888;
+  font-weight: bold;
+}
+.post-body .highlight .m, .post-body .highlight .mb, .post-body .highlight .mf, .post-body .highlight .mh, .post-body .highlight .mi, .post-body .highlight .il, .post-body .highlight .mo, .post-body .highlight .mx {
+  color: #0000dd;
+  font-weight: bold;
+}
+.post-body .highlight .s, .post-body .highlight .sb, .post-body .highlight .sc, .post-body .highlight .dl, .post-body .highlight .sd, .post-body .highlight .s2, .post-body .highlight .sh, .post-body .highlight .s1 {
+  color: #dd2200;
+  background-color: #fff0f0;
+}
+.post-body .highlight .sa {
+  color: #008800;
+  font-weight: bold;
+}
+.post-body .highlight .se {
+  color: #0044dd;
+  background-color: #fff0f0;
+}
+.post-body .highlight .si {
+  color: #3333bb;
+  background-color: #fff0f0;
+}
+.post-body .highlight .sx {
+  color: #22bb22;
+  background-color: #f0fff0;
+}
+.post-body .highlight .sr {
+  color: #008800;
+}
+.post-body .highlight .ss {
+  color: #aa6600;
+  background-color: #fff0f0;
+}
+.post-body .highlight .na {
+  color: #336699;
+}
+.post-body .highlight .nb, .post-body .highlight .bp {
+  color: #003388;
+}
+.post-body .highlight .nc {
+  color: #bb0066;
+  font-weight: bold;
+}
+.post-body .highlight .no {
+  color: #003366;
+  font-weight: bold;
+}
+.post-body .highlight .nd {
+  color: #555555;
+}
+.post-body .highlight .ne {
+  color: #bb0066;
+  font-weight: bold;
+}
+.post-body .highlight .nf, .post-body .highlight .fm {
+  color: #0066bb;
+  font-weight: bold;
+}
+.post-body .highlight .nl {
+  color: #336699;
+}
+.post-body .highlight .nn {
+  color: #bb0066;
+  font-weight: bold;
+}
+.post-body .highlight .py {
+  color: #336699;
+  font-weight: bold;
+}
+.post-body .highlight .nt {
+  color: #bb0066;
+  font-weight: bold;
+}
+.post-body .highlight .nv, .post-body .highlight .vc, .post-body .highlight .vm {
+  color: #336699;
+}
+.post-body .highlight .vg {
+  color: #dd7700;
+}
+.post-body .highlight .vi {
+  color: #3333bb;
+}
+.post-body .highlight .ow {
+  color: #008800;
+}
+.post-body .highlight .w {
+  color: #bbbbbb;
+}
