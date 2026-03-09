@@ -1,0 +1,87 @@
+/* =====================================================
+   TOC Sidebar — beautiful-jekyll 主题集成版
+   仅包含大纲栏自身的样式，不覆盖主题全局样式
+   ===================================================== */
+
+/* 外层两列布局容器 */
+.post-toc-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* 大纲栏 */
+.toc-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;                        /* 避开 beautiful-jekyll 的固定导航栏 */
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 12px 16px 12px 0;
+  border-right: 1px solid #e8e8e8;
+  margin-right: 28px;
+}
+
+.toc-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  margin: 3px 0;
+  line-height: 1.4;
+}
+
+.toc-list a {
+  color: #555;
+  text-decoration: none;
+  font-size: 13px;
+  display: block;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.toc-list a:hover {
+  color: #0085a1;
+  background: #f5f5f5;
+}
+
+.toc-list a.active {
+  font-weight: 600;
+  color: #0085a1;
+  background: #eef8fa;
+}
+
+/* 缩进层级 */
+.toc-list li[data-level="2"] { padding-left: 8px; }
+.toc-list li[data-level="3"] { padding-left: 16px; }
+.toc-list li[data-level="4"] { padding-left: 24px; }
+
+/* 文章主体区占满剩余宽度 */
+.post-toc-layout .post-toc-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 窄屏隐藏大纲栏 */
+@media (max-width: 991px) {
+  .toc-sidebar {
+    display: none;
+  }
+  .post-toc-layout {
+    display: block;
+  }
+}

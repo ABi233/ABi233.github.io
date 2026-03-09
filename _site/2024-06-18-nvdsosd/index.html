@@ -104,6 +104,11 @@
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -362,16 +367,22 @@
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd — DeepStream 6.3 Release documentation (nvidia.com)</a>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd — DeepStream 6.3 Release documentation (nvidia.com)</a>
 osd插件负责绘制例如od框, 线段, 圆圈, 文本标签等元素</p>
 
 <p><img src="https://pic-upload-for-abi.oss-cn-hangzhou.aliyuncs.com/img-bed/202311091006020.png" alt="image.png" />
@@ -484,47 +495,54 @@ osd插件的输入输出如上图所示
 
 <p>但是根据源码以及调试的信息来看, 这里超出max_element数量的display_meta是有内存越界的可能性的</p>
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-deepstream-use-custom-model/" data-toggle="tooltip" data-placement="top" title="DeepStream Use Custom Model">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-nvinfer/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvinfer">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-deepstream-use-custom-model/" data-toggle="tooltip" data-placement="top" title="DeepStream Use Custom Model">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-nvinfer/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvinfer">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

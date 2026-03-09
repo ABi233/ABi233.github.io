@@ -116,6 +116,11 @@ MetaData in the DeepStream SDK — DeepStream 6.3 Release documentation (nvidia.
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -374,16 +379,22 @@ MetaData in the DeepStream SDK — DeepStream 6.3 Release documentation (nvidia.
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <ul>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <ul>
   <li><strong>BatchMeta</strong>：BatchMeta 是包含一个或多个视频帧的整体信息的元数据。它提供了批处理中每个帧的集合信息，例如在一个批处理中有多少帧，以及这些帧的相关信息。</li>
 </ul>
 
@@ -391,47 +402,54 @@ MetaData in the DeepStream SDK — DeepStream 6.3 Release documentation (nvidia.
 <a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_metadata.html">MetaData in the DeepStream SDK — DeepStream 6.3 Release documentation (nvidia.com)</a></p>
 
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2020-02-28-test-markdown/" data-toggle="tooltip" data-placement="top" title="Sample blog post">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-NvDsFrameMeta/" data-toggle="tooltip" data-placement="top" title="DeepStream Struct - NvDsFrameMeta">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2020-02-28-test-markdown/" data-toggle="tooltip" data-placement="top" title="Sample blog post">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-NvDsFrameMeta/" data-toggle="tooltip" data-placement="top" title="DeepStream Struct - NvDsFrameMeta">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

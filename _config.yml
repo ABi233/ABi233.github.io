@@ -100,6 +100,7 @@ defaults:
       layout: "post"
       comments: false
       social-share: true
+      head-extra: post-head-extra.html
   -
     scope:
       path: ""

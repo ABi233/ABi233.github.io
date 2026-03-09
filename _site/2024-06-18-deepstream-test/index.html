@@ -104,6 +104,11 @@
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -362,16 +367,22 @@
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <p>对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <p>对于想要建立定制化应用的开发者来说, deepstream-test会比deepstream-app更加易于理解
 <img src="https://cdn.jsdelivr.net/gh/ABi233/pic-upload/obs/202310091415015.png" alt="Pasted image 20230801171301.png" /></p>
 
 <ul>
@@ -855,47 +866,54 @@
 
 <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html#getting-started-with-building-apps">Getting started with building apps</a></p>
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-deepstream-docker/" data-toggle="tooltip" data-placement="top" title="DeepStream Docker">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-deepstream-use-custom-model/" data-toggle="tooltip" data-placement="top" title="DeepStream Use Custom Model">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-deepstream-docker/" data-toggle="tooltip" data-placement="top" title="DeepStream Docker">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-deepstream-use-custom-model/" data-toggle="tooltip" data-placement="top" title="DeepStream Use Custom Model">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

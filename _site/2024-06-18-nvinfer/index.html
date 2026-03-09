@@ -131,6 +131,11 @@ operate-on-class-ids=1">
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -389,16 +394,22 @@ operate-on-class-ids=1">
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinfer.html">Gst-nvinfer — DeepStream 6.3 Release documentation (nvidia.com)</a>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinfer.html">Gst-nvinfer — DeepStream 6.3 Release documentation (nvidia.com)</a>
 <a href="https://blog.csdn.net/tangyzh/article/details/128913841">DeepStream插件指南-Gst-nvinfer_deepstream 插件_tangyzh的博客-CSDN博客</a></p>
 
 <h2 id="secondary-gie">secondary gie</h2>
@@ -410,47 +421,54 @@ operate-on-gie-id=1
 operate-on-class-ids=1
 </code></pre>
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-nvdsosd/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvdsosd">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-nvpreprocess/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvdspreprocess">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-nvdsosd/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvdsosd">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-nvpreprocess/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvdspreprocess">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

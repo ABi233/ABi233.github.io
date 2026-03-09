@@ -104,6 +104,11 @@
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -362,16 +367,22 @@
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvvideoconvert.html#gst-nvvideoconvert">Gst-nvvideoconvert — DeepStream 6.3 Release documentation (nvidia.com)</a></p>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvvideoconvert.html#gst-nvvideoconvert">Gst-nvvideoconvert — DeepStream 6.3 Release documentation (nvidia.com)</a></p>
 
 <p><img src="https://pic-upload-for-abi.oss-cn-hangzhou.aliyuncs.com/img-bed/202310241630141.png" alt="image.png" /></p>
 <h1 id="features">Features</h1>
@@ -388,43 +399,50 @@
 |allow-odd-crop|允许使用奇数坐标来进行crop操作|Boolean|allow-odd-crop=1 Default value is 1.|</p>
 
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-nvurisrcbin/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvurisrcbin">&larr; Previous Post</a>
-        </li>
-        
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-nvurisrcbin/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvurisrcbin">&larr; Previous Post</a>
+            </li>
+            
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

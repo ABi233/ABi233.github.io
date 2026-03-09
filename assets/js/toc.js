@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const container = document.querySelector('.post-body') || document.body;
+  const container = document.querySelector('.blog-post') || document.querySelector('.post-body') || document.body;
   const tocEl = document.getElementById('toc');
   if (!tocEl || !container) return;
 

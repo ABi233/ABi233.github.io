@@ -110,6 +110,11 @@
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -368,60 +373,73 @@
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin — DeepStream 6.3 Release documentation (nvidia.com)</a>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin — DeepStream 6.3 Release documentation (nvidia.com)</a>
 这个插件是一个gst source bin, 基于gst自带的<a href="https://gstreamer.freedesktop.org/documentation/playback/uridecodebin.html?gi-language=c">uridecodebin</a>, 添加了一些额外的功能: file loop、rtsp reconnection、smart record
 更多信息可见<code class="language-plaintext highlighter-rouge">gst-inspect-1.0 nvurisrcbin</code>显示的内容</p>
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-nvtracker/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvtracker">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-nvvideoconvert/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvvideoconvert">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-nvtracker/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvtracker">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-nvvideoconvert/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvvideoconvert">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>

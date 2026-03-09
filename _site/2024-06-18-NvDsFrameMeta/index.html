@@ -113,6 +113,11 @@
   
 
   
+    
+      <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
+
+    
+  
 
 </head>
 
@@ -371,62 +376,75 @@
 
 
 
-<div class=" container-md ">
+<div class=" container-fluid px-4 ">
   <div class="row">
-    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+    <div class=" col-12 " style="max-width: 70%; margin: 0 auto;">
 
       
 
       
 
-      <article role="main" class="blog-post">
-        <ul>
+      <!-- 两列布局：左侧大纲 + 右侧文章 -->
+      <div class="post-toc-layout">
+
+        <aside class="toc-sidebar" id="toc" aria-label="文章大纲"></aside>
+
+        <div class="post-toc-content">
+          <article role="main" class="blog-post">
+            <ul>
   <li><strong>FrameMeta</strong>：FrameMeta 是单个视频帧的元数据。它包含了关于这一帧的详细信息，如检测到的对象、帧编号、流ID等。在一个 BatchMeta 中，可以有多个 FrameMeta，每个 FrameMeta 对应一个视频帧。</li>
 </ul>
 
 <p>通过读取<code class="language-plaintext highlighter-rouge">NvDsFrameMeta-&gt;source_id</code>可以得到当前frame是来自于哪一个输入源, 通过遍历batchmeta中所有framemeta-&gt;sorce_id, 就可以得到此batch中包含了哪些输入源的数据</p>
 
-      </article>
+          </article>
 
-      
-        <div class="blog-tags">
-          <span>Tags:</span>
           
-            <a href="/tags#NVIDIA">NVIDIA</a>
+            <div class="blog-tags">
+              <span>Tags:</span>
+              
+                <a href="/tags#NVIDIA">NVIDIA</a>
+              
+                <a href="/tags#DeepStream">DeepStream</a>
+              
+            </div>
           
-            <a href="/tags#DeepStream">DeepStream</a>
+
           
-        </div>
-      
 
-      
-
-      
-        <!-- Check if any share-links are active -->
+          
+            <!-- Check if any share-links are active -->
 
 
 
 
 
-      
+          
 
-      <ul class="pagination blog-pager">
-        
-        <li class="page-item previous">
-          <a class="page-link" href="/2024-06-18-NvDsBatchMeta/" data-toggle="tooltip" data-placement="top" title="DeepStream Struct - NvDsBatchMeta">&larr; Previous Post</a>
-        </li>
-        
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2024-06-18-deepstream-app/" data-toggle="tooltip" data-placement="top" title="DeepStream App">Next Post &rarr;</a>
-        </li>
-        
-      </ul>
-      
+          <ul class="pagination blog-pager">
+            
+            <li class="page-item previous">
+              <a class="page-link" href="/2024-06-18-NvDsBatchMeta/" data-toggle="tooltip" data-placement="top" title="DeepStream Struct - NvDsBatchMeta">&larr; Previous Post</a>
+            </li>
+            
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2024-06-18-deepstream-app/" data-toggle="tooltip" data-placement="top" title="DeepStream App">Next Post &rarr;</a>
+            </li>
+            
+          </ul>
+
+          
+
+        </div><!-- /.post-toc-content -->
+
+      </div><!-- /.post-toc-layout -->
 
     </div>
   </div>
 </div>
+
+<script src="/assets/js/toc.js"></script>
 
 
   <footer>
