@@ -9,13 +9,32 @@
 
   
 
-  <title>DeepStream Plugin - Gst-nvdspreprocess</title>
+  <title>ssh key的创建和传输</title>
 
   
   <meta name="author" content="ABi233">
   
 
-  <meta name="description" content="Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com) 推理模块前的预处理模块 在需要的时候可以作为获取模型输入层数据的途径 issue &amp;amp; reference How to get the input of nvinfer in deepstream python app? - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums 关于获取模型输入层的讨论 NVIDIA Jetson and Raspberry Pi: Xavier NX-DeepStream 5.0 #4 - Handling Primary, Secondary Inference...">
+  <meta name="description" content="创建
+
+ssh-keygen
+
+
+传输
+
+
+  使用ssh-copy-id传递sshkey
+     ssh-copy-id -i ~/.ssh/id_rsa.pub  user_name@x.xxx.x.xxx
+    
+  
+  在windows中可以这样做
+     type $env:USERPROFILE\.ssh\id_rsa.pub | ssh {IP-ADDRESS-OR-FQDN} &quot;cat &amp;gt;&amp;gt; .ssh/authorized_keys&quot;
+    
+  
+  使用scp传递秘钥
+     scp ~/.ssh/id_rsa.pub user_name@x.xxx.x.xxx:~/tmp_sshkey
+
+ cat ~/tmp_sshkey &amp;gt;&amp;gt; ~/.ssh/authorized_keys">
 
   
 
@@ -74,17 +93,36 @@
 
   
   <meta property="og:site_name" content="Abi Base">
-  <meta property="og:title" content="DeepStream Plugin - Gst-nvdspreprocess">
-  <meta property="og:description" content="Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com) 推理模块前的预处理模块 在需要的时候可以作为获取模型输入层数据的途径 issue &amp;amp; reference How to get the input of nvinfer in deepstream python app? - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums 关于获取模型输入层的讨论 NVIDIA Jetson and Raspberry Pi: Xavier NX-DeepStream 5.0 #4 - Handling Primary, Secondary Inference...">
+  <meta property="og:title" content="ssh key的创建和传输">
+  <meta property="og:description" content="创建
+
+ssh-keygen
+
+
+传输
+
+
+  使用ssh-copy-id传递sshkey
+     ssh-copy-id -i ~/.ssh/id_rsa.pub  user_name@x.xxx.x.xxx
+    
+  
+  在windows中可以这样做
+     type $env:USERPROFILE\.ssh\id_rsa.pub | ssh {IP-ADDRESS-OR-FQDN} &quot;cat &amp;gt;&amp;gt; .ssh/authorized_keys&quot;
+    
+  
+  使用scp传递秘钥
+     scp ~/.ssh/id_rsa.pub user_name@x.xxx.x.xxx:~/tmp_sshkey
+
+ cat ~/tmp_sshkey &amp;gt;&amp;gt; ~/.ssh/authorized_keys">
 
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="ABi233">
-  <meta property="og:article:published_time" content="2024-06-18T00:00:00+08:00">
-  <meta property="og:url" content="http://0.0.0.0:4000/2024-06-18-nvpreprocess/">
-  <link rel="canonical" href="http://0.0.0.0:4000/2024-06-18-nvpreprocess/">
+  <meta property="og:article:published_time" content="2026-03-11T00:00:00+08:00">
+  <meta property="og:url" content="http://0.0.0.0:4000/2026-03-11-ssh-key/">
+  <link rel="canonical" href="http://0.0.0.0:4000/2026-03-11-ssh-key/">
   
 
   
@@ -93,8 +131,27 @@
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="DeepStream Plugin - Gst-nvdspreprocess">
-  <meta property="twitter:description" content="Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com) 推理模块前的预处理模块 在需要的时候可以作为获取模型输入层数据的途径 issue &amp;amp; reference How to get the input of nvinfer in deepstream python app? - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums 关于获取模型输入层的讨论 NVIDIA Jetson and Raspberry Pi: Xavier NX-DeepStream 5.0 #4 - Handling Primary, Secondary Inference...">
+  <meta property="twitter:title" content="ssh key的创建和传输">
+  <meta property="twitter:description" content="创建
+
+ssh-keygen
+
+
+传输
+
+
+  使用ssh-copy-id传递sshkey
+     ssh-copy-id -i ~/.ssh/id_rsa.pub  user_name@x.xxx.x.xxx
+    
+  
+  在windows中可以这样做
+     type $env:USERPROFILE\.ssh\id_rsa.pub | ssh {IP-ADDRESS-OR-FQDN} &quot;cat &amp;gt;&amp;gt; .ssh/authorized_keys&quot;
+    
+  
+  使用scp传递秘钥
+     scp ~/.ssh/id_rsa.pub user_name@x.xxx.x.xxx:~/tmp_sshkey
+
+ cat ~/tmp_sshkey &amp;gt;&amp;gt; ~/.ssh/authorized_keys">
 
   
 
@@ -377,11 +434,11 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>DeepStream Plugin - Gst-nvdspreprocess</h1>
+          <h1>ssh key的创建和传输</h1>
           
 
           
-            <span class="post-meta">Posted on June 18, 2024</span>
+            <span class="post-meta">Posted on March 11, 2026</span>
             
             
           
@@ -411,17 +468,29 @@
 
         <div class="post-toc-content">
           <article role="main" class="blog-post">
-            <p><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha) — DeepStream 6.3 Release documentation (nvidia.com)</a>
-推理模块前的预处理模块
-在需要的时候可以作为获取模型输入层数据的途径</p>
-<h3 id="issue--reference">issue &amp; reference</h3>
-<p><a href="https://forums.developer.nvidia.com/t/how-to-get-the-input-of-nvinfer-in-deepstream-python-app/214559">How to get the input of nvinfer in deepstream python app? - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums</a>
-关于获取模型输入层的讨论
-<a href="https://spyjetson.blogspot.com/2020/08/xavier-nx-deepstream-50-4-handling.html">NVIDIA Jetson and Raspberry Pi: Xavier NX-DeepStream 5.0 #4 - Handling Primary, Secondary Inference Results (spyjetson.blogspot.com)</a>
-一个获取模型输入层的python实例
-<a href="https://forums.developer.nvidia.com/t/deepstream-3d-action-recognition-the-custom-model-failed-to-load/264140">(deepstream-3d-action-recognition)The custom model failed to load - Intelligent Video Analytics / DeepStream SDK - NVIDIA Developer Forums</a>
-preprocess库加载失败的问题(模型输入层维度不一致的问题)</p>
+            <h1 id="创建">创建</h1>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen
+</code></pre></div></div>
+
+<h1 id="传输">传输</h1>
+
+<ol>
+  <li>使用ssh-copy-id传递sshkey
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ssh-copy-id <span class="nt">-i</span> ~/.ssh/id_rsa.pub  user_name@x.xxx.x.xxx
+</code></pre></div>    </div>
+  </li>
+  <li>在windows中可以这样做
+    <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">USERPROFILE</span><span class="n">\.ssh\id_rsa.pub</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="p">{</span><span class="n">IP-ADDRESS-OR-FQDN</span><span class="p">}</span><span class="w"> </span><span class="s2">"cat &gt;&gt; .ssh/authorized_keys"</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>使用scp传递秘钥
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> scp ~/.ssh/id_rsa.pub user_name@x.xxx.x.xxx:~/tmp_sshkey
+
+ <span class="nb">cat</span> ~/tmp_sshkey <span class="o">&gt;&gt;</span> ~/.ssh/authorized_keys
+</code></pre></div>    </div>
+  </li>
+</ol>
 
           </article>
 
@@ -429,9 +498,9 @@ preprocess库加载失败的问题(模型输入层维度不一致的问题)</p>
             <div class="blog-tags">
               <span>Tags:</span>
               
-                <a href="/tags#NVIDIA">NVIDIA</a>
+                <a href="/tags#Linux">Linux</a>
               
-                <a href="/tags#DeepStream">DeepStream</a>
+                <a href="/tags#SSH">SSH</a>
               
             </div>
           
@@ -450,12 +519,12 @@ preprocess库加载失败的问题(模型输入层维度不一致的问题)</p>
           <ul class="pagination blog-pager">
             
             <li class="page-item previous">
-              <a class="page-link" href="/2024-06-18-nvinfer/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvinfer">&larr; Previous Post</a>
+              <a class="page-link" href="/2026-03-11-nvidia-smi/" data-toggle="tooltip" data-placement="top" title="nvidia-smi笔记">&larr; Previous Post</a>
             </li>
             
             
             <li class="page-item next">
-              <a class="page-link" href="/2024-06-18-nvstreammux/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvstreammux">Next Post &rarr;</a>
+              <a class="page-link" href="/2026-03-11-tmux/" data-toggle="tooltip" data-placement="top" title="tmux">Next Post &rarr;</a>
             </li>
             
           </ul>

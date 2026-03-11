@@ -150,6 +150,34 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "vimrc", \
+          "category" : "Linuxvim", \
+          "url"      : "/2026-03-11-vimrc/", \
+          "date"     : "March 11, 2026" \
+        }, \
+       \
+        { \
+          "title"    : "tmux.conf", \
+          "category" : "Linuxtmux", \
+          "url"      : "/2026-03-11-tmuxconf/", \
+          "date"     : "March 11, 2026" \
+        }, \
+       \
+        { \
+          "title"    : "tmux", \
+          "category" : "Linuxtmux", \
+          "url"      : "/2026-03-11-tmux/", \
+          "date"     : "March 11, 2026" \
+        }, \
+       \
+        { \
+          "title"    : "ssh key的创建和传输", \
+          "category" : "LinuxSSH", \
+          "url"      : "/2026-03-11-ssh-key/", \
+          "date"     : "March 11, 2026" \
+        }, \
+       \
+        { \
           "title"    : "nvidia-smi笔记", \
           "category" : "NVIDIA", \
           "url"      : "/2026-03-11-nvidia-smi/", \
@@ -167,6 +195,13 @@
           "title"    : "Nvidia Driver issues", \
           "category" : "NVIDIA", \
           "url"      : "/2026-03-11-nvidia-driver-issues/", \
+          "date"     : "March 11, 2026" \
+        }, \
+       \
+        { \
+          "title"    : "gitconfig", \
+          "category" : "Linuxgit", \
+          "url"      : "/2026-03-11-gitconfig/", \
           "date"     : "March 11, 2026" \
         }, \
        \
@@ -294,6 +329,13 @@
           "title"    : "Abi&#39;s NoteBook", \
           "category" : "page", \
           "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Abi&#39;s NoteBook", \
+          "category" : "page", \
+          "url"      : "/page3/", \
           "date"     : "January 1, 1970" \
         } \
        \
