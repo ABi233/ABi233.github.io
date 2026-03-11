@@ -9,13 +9,13 @@
 
   
 
-  <title>nvidia-smi笔记</title>
+  <title>Nvidia Driver issues</title>
 
   
   <meta name="author" content="ABi233">
   
 
-  <meta name="description" content="GPU Util的理解 reference: Understanding NVIDIA GPU Performance: Utilization vs. Saturation (2023) 搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation (是上面文章的翻译, 不易于理解, 还是直接看原文比较好) 作者从go-nvml项目的一个头文件中找到了关于gpu util的解释 Each sample period may be between 1 second and 1/6 second, depending on the product being queried. GPU utilization: This represents the percentage of time during...">
+  <meta name="description" content="Failed to initialize NVML: Driver/library version mismatch 在使用nvidia-smi命令时报错Failed to initialize NVML: Driver/library version mismatch 之前一直用重启来解决问题, 最近发现该问题出现的频率越来越高, 就打算看看有没有什么更加根本的原因导致了这个问题 在nvidia-nvml-driver-library-version-mismatch - Stack Overflow 的评论区中, ProgrammingLlama提到为什么重启会效果的原因, 查看日志/var/log/apt/history.log, 发现apt自动更新了nvidia-driver以及libnvidia, 而这个更新可能只有执行了重启才能真正生效 Start-Date: 2024-04-13 06:28:16 Commandline: /usr/bin/unattended-upgrade Install: nvidia-firmware-535-server-535.161.08:amd64 (535.161.08-0ubuntu2.20.04.1, automatic) Upgrade: libnvidia-extra-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-gl-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-compute-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-fbc1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-dkms-535-server:amd64 (535.161.07-0ubuntu0.20.04.1,...">
 
   
 
@@ -74,8 +74,8 @@
 
   
   <meta property="og:site_name" content="Abi Base">
-  <meta property="og:title" content="nvidia-smi笔记">
-  <meta property="og:description" content="GPU Util的理解 reference: Understanding NVIDIA GPU Performance: Utilization vs. Saturation (2023) 搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation (是上面文章的翻译, 不易于理解, 还是直接看原文比较好) 作者从go-nvml项目的一个头文件中找到了关于gpu util的解释 Each sample period may be between 1 second and 1/6 second, depending on the product being queried. GPU utilization: This represents the percentage of time during...">
+  <meta property="og:title" content="Nvidia Driver issues">
+  <meta property="og:description" content="Failed to initialize NVML: Driver/library version mismatch 在使用nvidia-smi命令时报错Failed to initialize NVML: Driver/library version mismatch 之前一直用重启来解决问题, 最近发现该问题出现的频率越来越高, 就打算看看有没有什么更加根本的原因导致了这个问题 在nvidia-nvml-driver-library-version-mismatch - Stack Overflow 的评论区中, ProgrammingLlama提到为什么重启会效果的原因, 查看日志/var/log/apt/history.log, 发现apt自动更新了nvidia-driver以及libnvidia, 而这个更新可能只有执行了重启才能真正生效 Start-Date: 2024-04-13 06:28:16 Commandline: /usr/bin/unattended-upgrade Install: nvidia-firmware-535-server-535.161.08:amd64 (535.161.08-0ubuntu2.20.04.1, automatic) Upgrade: libnvidia-extra-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-gl-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-compute-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-fbc1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-dkms-535-server:amd64 (535.161.07-0ubuntu0.20.04.1,...">
 
   
 
@@ -83,8 +83,8 @@
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="ABi233">
   <meta property="og:article:published_time" content="2026-03-11T00:00:00+08:00">
-  <meta property="og:url" content="http://0.0.0.0:4000/2026-03-11-nvidia-smi/">
-  <link rel="canonical" href="http://0.0.0.0:4000/2026-03-11-nvidia-smi/">
+  <meta property="og:url" content="http://0.0.0.0:4000/2026-03-11-nvidia-driver-issues/">
+  <link rel="canonical" href="http://0.0.0.0:4000/2026-03-11-nvidia-driver-issues/">
   
 
   
@@ -93,8 +93,8 @@
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="nvidia-smi笔记">
-  <meta property="twitter:description" content="GPU Util的理解 reference: Understanding NVIDIA GPU Performance: Utilization vs. Saturation (2023) 搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation (是上面文章的翻译, 不易于理解, 还是直接看原文比较好) 作者从go-nvml项目的一个头文件中找到了关于gpu util的解释 Each sample period may be between 1 second and 1/6 second, depending on the product being queried. GPU utilization: This represents the percentage of time during...">
+  <meta property="twitter:title" content="Nvidia Driver issues">
+  <meta property="twitter:description" content="Failed to initialize NVML: Driver/library version mismatch 在使用nvidia-smi命令时报错Failed to initialize NVML: Driver/library version mismatch 之前一直用重启来解决问题, 最近发现该问题出现的频率越来越高, 就打算看看有没有什么更加根本的原因导致了这个问题 在nvidia-nvml-driver-library-version-mismatch - Stack Overflow 的评论区中, ProgrammingLlama提到为什么重启会效果的原因, 查看日志/var/log/apt/history.log, 发现apt自动更新了nvidia-driver以及libnvidia, 而这个更新可能只有执行了重启才能真正生效 Start-Date: 2024-04-13 06:28:16 Commandline: /usr/bin/unattended-upgrade Install: nvidia-firmware-535-server-535.161.08:amd64 (535.161.08-0ubuntu2.20.04.1, automatic) Upgrade: libnvidia-extra-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-gl-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-compute-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-fbc1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-dkms-535-server:amd64 (535.161.07-0ubuntu0.20.04.1,...">
 
   
 
@@ -370,7 +370,7 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>nvidia-smi笔记</h1>
+          <h1>Nvidia Driver issues</h1>
           
 
           
@@ -404,60 +404,84 @@
 
         <div class="post-toc-content">
           <article role="main" class="blog-post">
-            <h2 id="gpu-util的理解">GPU Util的理解</h2>
+            <h2 id="failed-to-initialize-nvml-driverlibrary-version-mismatch">Failed to initialize NVML: Driver/library version mismatch</h2>
 
-<p>reference: <a href="https://arthurchiao.art/blog/understanding-gpu-performance/">Understanding NVIDIA GPU Performance: Utilization vs. Saturation (2023)</a></p>
+<p>在使用nvidia-smi命令时报错<code class="language-plaintext highlighter-rouge">Failed to initialize NVML: Driver/library version mismatch</code>
+之前一直用重启来解决问题, 最近发现该问题出现的频率越来越高, 就打算看看有没有什么更加根本的原因导致了这个问题</p>
 
-<p><a href="https://mp.weixin.qq.com/s/6PcF2RwGdm1G0JllGSS3jw">搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation</a> (是上面文章的翻译, 不易于理解, 还是直接看原文比较好)</p>
+<p>在<a href="https://stackoverflow.com/questions/43022843/nvidia-nvml-driver-library-version-mismatch#:~:text=If%20you%27re%20wondering,see%20it%20again.">nvidia-nvml-driver-library-version-mismatch - Stack Overflow 的评论区</a>中, ProgrammingLlama提到为什么重启会效果的原因, 查看日志<code class="language-plaintext highlighter-rouge">/var/log/apt/history.log</code>, 发现apt自动更新了nvidia-driver以及libnvidia, 而这个更新可能只有执行了重启才能真正生效</p>
 
-<p>作者从go-nvml项目的一个头文件中找到了关于gpu util的解释</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start-Date: 2024-04-13  06:28:16
+Commandline: /usr/bin/unattended-upgrade
+Install: nvidia-firmware-535-server-535.161.08:amd64 (535.161.08-0ubuntu2.20.04.1, automatic)
+Upgrade: libnvidia-extra-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-gl-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-compute-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-fbc1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-dkms-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-utils-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-decode-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-encode-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-driver-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-kernel-source-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-kernel-common-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), xserver-xorg-video-nvidia-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-compute-utils-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-cfg1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1)
+End-Date: 2024-04-13  06:29:57
 
-<blockquote>
-  <p>Each sample period may be between 1 second and 1/6 second, depending on the product being queried.
-<strong>GPU utilization</strong>: This represents the percentage of time during which one or more kernels were executing on the GPU.</p>
-</blockquote>
+Start-Date: 2024-04-13  06:30:06
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: libnss3:amd64 (2:3.98-0ubuntu0.20.04.1, 2:3.98-0ubuntu0.20.04.2)
+End-Date: 2024-04-13  06:30:07
 
-<p>NVML中对于utilization的定义就是<strong><em>在过去的sample周期中某些活动发生的时间百分比(设备使用频率)</em></strong>
-可以理解为GPU的利用程度而不是使用率, 例如一个smple周期为1s, 在这1s内GPU也被使用了完整的1s, 那么utilization就是100%, GPU没有空转</p>
+Start-Date: 2024-04-13  06:30:15
+Commandline: /usr/bin/unattended-upgrade
+Upgrade: libnvidia-common-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1)
+End-Date: 2024-04-13  06:30:16
 
-<h3 id="the-use-methodology">The “USE” methodology</h3>
+Start-Date: 2024-04-13  06:30:25
+Commandline: /usr/bin/unattended-upgrade
+Remove: nvidia-firmware-535-server-535.161.07:amd64 (535.161.07-0ubuntu0.20.04.1)
+End-Date: 2024-04-13  06:30:25
+</code></pre></div></div>
 
-<p>在书籍”Systems Performance: Enterprise and the Cloud”中Brendan Gregg提到了USE (Utilization/Saturation/Error)方法论</p>
+<p>在<a href="https://stackoverflow.com/questions/72560165/how-to-prevent-nvidia-drivers-from-automatically-upgrading-on-ubuntu">How to prevent NVIDIA drivers from automatically upgrading on Ubuntu? - Stack Overflow</a>中提到了同样的问题, 并且给出了一个禁用apt自动更新的方法:
+Add <code class="language-plaintext highlighter-rouge">nvidia-</code> and <code class="language-plaintext highlighter-rouge">libnvidia-</code> to <code class="language-plaintext highlighter-rouge">/etc/apt/apt.conf.d/50unattended-upgrades</code> like so:</p>
 
-<blockquote>
-  <ul>
-    <li>utilization: ==<strong>the average time</strong>== that the resource was busy servicing work</li>
-    <li>saturation: the degree to which the resource has extra work which it can’t service, often queued</li>
-    <li>errors: the count of error events</li>
-  </ul>
-</blockquote>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unattended-Upgrade::Package-Blacklist {
+        "^(lib)?nvidia-";
+        "nvidia-";
+        "libnvidia-";
+        ...
+}
+</code></pre></div></div>
 
-<ul>
-  <li>资源服务于任务的平均时间</li>
-  <li>资源拥有额外任务的程度, 通常是在排队的任务; 这也是大家对于使用率常用的一个概念, 有在排队的任务这个百分比会超过100%</li>
-  <li>异常事件的数量</li>
-</ul>
+<p>Consider adding additional lines if you see any other NVIDIA driver names in the output of <code class="language-plaintext highlighter-rouge">apt list --installed | grep nv</code></p>
 
-<p>USE方法论对”utilization”提供了一种额外的解释</p>
+<h2 id="nvidia-smi-has-failed-because-it-couldnt-communicate-with-the-nvidia-driver">NVIDIA-SMI has failed because it couldn’t communicate with the NVIDIA driver</h2>
 
-<blockquote>
-  <p><strong>==There is another definition==</strong> where utilization describes <strong>==the proportion of a resource that is used==</strong>, and so 100% utilization means no more work can be accepted, <strong>==unlike with the “busy” definition above==</strong>.</p>
-</blockquote>
+<p>在确定驱动存在的情况下执行nvidia-smi时出现以下错误:</p>
 
-<ul>
-  <li>在这个定义中utilization是指资源总量确定的前提下有多少资源正在被使用, 不同于上面的busy定义</li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. 
+Make sure that the latest NVIDIA driver is installed and running.
+</code></pre></div></div>
 
-<blockquote>
-  <p>In summary, within the “USE” methodology, “utilization” refers to the <strong>==portion of time a resource is actively serving or working, without considering the allocated capacity==</strong>.</p>
-</blockquote>
+<p>这个问题一般是由于Linux内核升级导致与驱动内核不匹配导致的, 可以使用dkms恢复(重新编译)驱动内核模块</p>
 
-<p>不过NVML库依旧使用了第一种”utilization”定义, 而不是更广泛的使用率的概念
-作者提出, 使用”used-frequency”来作为标签可以更加容易被理解</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 查询驱动版本</span>
+<span class="nb">ls</span> /usr/src | <span class="nb">grep </span>nvidia
 
-<blockquote>
-  <p>If necessary, an alternative term to replace “utilization” could be <strong>==<code class="language-plaintext highlighter-rouge">"used-frequency"</code>==</strong>, indicating <strong>==how frequently the device is being utilized==</strong>.</p>
-</blockquote>
+<span class="c"># 通过 DKMS（Dynamic Kernel Module Support）框架安装指定版本的 NVIDIA 显卡驱动模块</span>
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>dkms
+<span class="nb">sudo </span>dkms <span class="nb">install</span> <span class="nt">-m</span> nvidia <span class="nt">-v</span> srv-535.230.02
+</code></pre></div></div>
+
+<p><strong>dkms</strong>是动态内核模块支持工具，用于自动重建内核模块（如显卡驱动）</p>
+
+<ol>
+  <li><strong>DKMS 的工作流程</strong>：
+    <ul>
+      <li>将驱动源码（如 NVIDIA 驱动）注册到 DKMS 系统中</li>
+      <li>当内核升级时，==DKMS 自动重新编译==并安装适配新内核的模块</li>
+    </ul>
+  </li>
+  <li><strong>此命令的具体行为</strong>：
+    <ul>
+      <li>在 DKMS 系统中注册并编译版本为 <code class="language-plaintext highlighter-rouge">srv-535.230.02</code> 的 NVIDIA 驱动模块。</li>
+      <li>将编译后的模块安装到当前运行的内核中。</li>
+    </ul>
+  </li>
+</ol>
+
+<p>reference: <a href="https://blog.csdn.net/wjinjie/article/details/108997692">NVIDIA驱动失效简单解决方案：NVIDIA-SMI has failed because it couldn‘t communicate with the NVIDIA driver._nvidia-smi has failed because it couldn’t communic-CSDN博客</a></p>
 
           </article>
 
@@ -484,9 +508,13 @@
           <ul class="pagination blog-pager">
             
             <li class="page-item previous">
-              <a class="page-link" href="/2026-03-11-nvidia-driver/" data-toggle="tooltip" data-placement="top" title="Nvidia Driver">&larr; Previous Post</a>
+              <a class="page-link" href="/2024-06-18-nvvideoconvert/" data-toggle="tooltip" data-placement="top" title="DeepStream Plugin - Gst-nvvideoconvert">&larr; Previous Post</a>
             </li>
             
+            
+            <li class="page-item next">
+              <a class="page-link" href="/2026-03-11-nvidia-driver/" data-toggle="tooltip" data-placement="top" title="Nvidia Driver">Next Post &rarr;</a>
+            </li>
             
           </ul>
 

@@ -8,7 +8,8 @@ tags: [NVIDIA]
 ## GPU Util的理解
 
 reference: [Understanding NVIDIA GPU Performance: Utilization vs. Saturation (2023)](https://arthurchiao.art/blog/understanding-gpu-performance/)
-[搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation](https://mp.weixin.qq.com/s/6PcF2RwGdm1G0JllGSS3jw)上面文章的翻译, 不易于理解, 还是直接看原文比较好
+
+[搞懂 NVIDIA GPU 性能指标 很容易弄混的一个概念： Utilization vs Saturation](https://mp.weixin.qq.com/s/6PcF2RwGdm1G0JllGSS3jw) (是上面文章的翻译, 不易于理解, 还是直接看原文比较好)
 
 作者从go-nvml项目的一个头文件中找到了关于gpu util的解释
 
