@@ -17,6 +17,8 @@
 
   <meta name="description" content="gst plugin introduce Gst-nvtracker — DeepStream 6.3 Release documentation (nvidia.com) deepstream之Gst-nvtracker - 知乎 (zhihu.com) 【Nvidia DeepStream5.0】Gst-nvtracker插件功能说明_行路南的博客-CSDN博客 NvDCF参数解析_坚强的羊脂球的博客-CSDN博客 nvtracker插件支持调用任何追踪器的底层库, 在NvMultiObjectTracker library中有一些官方提供的参考案例, 例如IOU, NvSORT, NvDeepSORT and NvDCF nvtracker插件会查询底层库对于输入格式的功能和要求, 内存类型, 以及批处理支持情况. 根据这些信息, 对输入帧进行转换, 转换到底层库要求的格式. e.g.NvDeepSORT and NvDCF使用NV12 or RGBA, 而IOU and NvSORT不需要video frame buffers 底层tracker库的功能有两个方面: 支持跨多个输入流的批处理能力, 支持传递上一帧追踪数据的能力 行多个输入流的批处理(batch processing across multiple input streams) 对多个输入流进行批处理的效率会比单独处理每个流要高, 也可以减少数据搬移产生的开销,...">
 
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+
   
 
   
@@ -106,7 +108,7 @@
   
     
       <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
-<script src="/assets/js/mark-highlight.js?v=1773219722"></script>
+<script src="/assets/js/mark-highlight.js?v=1773224081"></script>
 
     
   

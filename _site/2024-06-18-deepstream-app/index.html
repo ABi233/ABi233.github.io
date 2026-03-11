@@ -17,6 +17,8 @@
 
   <meta name="description" content="[Nvidia DeepStream 101: DeepStream Tutorial Medium Medium](https://chirag4798.medium.com/nvidia-deepstream-101-a-step-by-step-guide-to-creating-your-first-deepstream-application-68148753cf96) 环境 环境配置 sudo apt-get install libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \ libgstrtspserver-1.0-dev libx11-dev nvidia-cuda-toolkit 编译选项 在deepstream-test*中提供的Makefile中修改CUDA_VER For Jetson, CUDA_VER=11.4 For x86, CUDA_VER=11.8 sudo make(在容器中不要求sudo) pipeline 输入 rtsp输入 图片输入 图片输入需要使用deepstream-image-decode-app ./deepstream-image-decode-app &amp;lt;file1&amp;gt; [file2] ... [fileN] ./deepstream-image-decode-app file1.mjpeg file2.mjpeg 也有图片输入case的sample deepstream/sources/apps/sample_apps/deepstream-image-decode-test/ 解码 gstreamer硬解 deepstream中对于gstreamer解码器的配置如下, 可以看到是调用nvdec_h264来做硬解支持 /* Since the...">
 
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+
   
 
   
@@ -106,7 +108,7 @@
   
     
       <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
-<script src="/assets/js/mark-highlight.js?v=1773219722"></script>
+<script src="/assets/js/mark-highlight.js?v=1773224081"></script>
 
     
   

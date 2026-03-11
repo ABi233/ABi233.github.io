@@ -17,6 +17,8 @@
 
   <meta name="description" content="Failed to initialize NVML: Driver/library version mismatch 在使用nvidia-smi命令时报错Failed to initialize NVML: Driver/library version mismatch 之前一直用重启来解决问题, 最近发现该问题出现的频率越来越高, 就打算看看有没有什么更加根本的原因导致了这个问题 在nvidia-nvml-driver-library-version-mismatch - Stack Overflow 的评论区中, ProgrammingLlama提到为什么重启会效果的原因, 查看日志/var/log/apt/history.log, 发现apt自动更新了nvidia-driver以及libnvidia, 而这个更新可能只有执行了重启才能真正生效 Start-Date: 2024-04-13 06:28:16 Commandline: /usr/bin/unattended-upgrade Install: nvidia-firmware-535-server-535.161.08:amd64 (535.161.08-0ubuntu2.20.04.1, automatic) Upgrade: libnvidia-extra-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-gl-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-compute-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), libnvidia-fbc1-535-server:amd64 (535.161.07-0ubuntu0.20.04.1, 535.161.08-0ubuntu2.20.04.1), nvidia-dkms-535-server:amd64 (535.161.07-0ubuntu0.20.04.1,...">
 
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+
   
 
   
@@ -106,7 +108,7 @@
   
     
       <link rel="stylesheet" href="/assets/css/toc-sidebar.css">
-<script src="/assets/js/mark-highlight.js?v=1773219722"></script>
+<script src="/assets/js/mark-highlight.js?v=1773224081"></script>
 
     
   
